@@ -10,6 +10,24 @@ const navItems = [
   { label: "Começar", href: "#cta" },
 ];
 
+const realProblemsMessages = [
+  {
+    sender: "Admin do Grupo",
+    title: "Tudo vira bagunça",
+    body: "As mesmas perguntas aparecem sempre.\nVocê responde.\nE no dia seguinte… volta tudo de novo.",
+  },
+  {
+    sender: "Mentora do Grupo",
+    title: "Quem não acompanha some",
+    body: "Algumas pessoas se perdem no meio das mensagens.\nQuando você percebe… já saíram.",
+  },
+  {
+    sender: "Líder da Comunidade",
+    title: "Como eu provo que isso importa?",
+    body: "Você sabe que o grupo gera valor.\nMas sem dados… explicar isso fica difícil.",
+  },
+];
+
 const organizeCards = [
   {
     title: "Organiza sem interromper",
@@ -159,6 +177,261 @@ const communitySignals = [
   },
 ];
 
+const borisHelpsCards = [
+  {
+    title: "Eu envio resumos do que importa",
+    description:
+      "Todo dia, eu preparo um resumo com os principais temas do grupo. Assim, mesmo quem não acompanhou tudo continua por dentro — sem stress.",
+    benefits: ["menos ansiedade", "mais pertencimento"],
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M8 7h8M8 11h8M8 15h5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7.5 3.8h9A2.7 2.7 0 0 1 19.2 6.5v11A2.7 2.7 0 0 1 16.5 20.2h-9A2.7 2.7 0 0 1 4.8 17.5v-11A2.7 2.7 0 0 1 7.5 3.8Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Eu transformo o grupo em dados claros",
+    description:
+      "Eu mostro quantas pessoas estão ativas, o ritmo de conversa, picos de engajamento e quem mais contribui.",
+    benefits: ["decisões melhores", "argumentos para o board", "prova de valor"],
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M6 18V10"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M12 18V6"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M18 18v-7"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M5 18h14"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Eu recebo quem chega no grupo",
+    description:
+      "Quando alguém entra, eu dou boas-vindas marcando a pessoa. Simples, humano e acolhedor.",
+    benefits: ["pertencimento desde o primeiro minuto"],
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M16 11.5a3.2 3.2 0 1 0-6.4 0c0 1.5.9 2.6 2 3.3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M6.5 19c1.4-2.6 4-4 6.7-4 2.5 0 5 1.2 6.3 3.6"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M17.5 7.5h3M19 6v3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Eu ajudo você a reconhecer quem faz a diferença",
+    description:
+      "Eu mostro quem mais contribui na comunidade — abrindo espaço para reconhecimento e gamificação saudável.",
+    benefits: ["cultura positiva", "engajamento orgânico"],
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M12 3.8l2.3 4.7 5.2.8-3.8 3.7.9 5.1-4.6-2.4-4.6 2.4.9-5.1-3.8-3.7 5.2-.8L12 3.8Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+];
+
+const memberBenefits = [
+  "não precisam acompanhar tudo",
+  "entendem o que está acontecendo",
+  "se sentem bem-vindos desde o início",
+];
+
+const howItWorksSteps = [
+  {
+    title: "Você conecta o grupo",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M8.5 12a3.5 3.5 0 0 1 7 0"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M6.5 18a6.5 6.5 0 0 1 11 0"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M18 7.5h3M19.5 6v3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Eu começo a entender o comportamento",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M6.5 15.5c1.3-1.9 3.2-3 5.6-3 2.2 0 4 .8 5.4 2.3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7.5 9.5c1.1-1.4 2.7-2.2 4.8-2.2 1.7 0 3.1.5 4.2 1.5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M5 19h14"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Eu entrego métricas e insights",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path d="M7 17v-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M12 17V7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M17 17v-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M5 17h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Eu preparo resumos automáticos",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path d="M8 7h8M8 11h8M8 15h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path
+          d="M7.5 3.8h9A2.7 2.7 0 0 1 19.2 6.5v11A2.7 2.7 0 0 1 16.5 20.2h-9A2.7 2.7 0 0 1 4.8 17.5v-11A2.7 2.7 0 0 1 7.5 3.8Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Sua comunidade flui melhor",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M5.5 13c1.5-2 3.7-3 6.5-3 2.5 0 4.6.7 6.5 2.2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7 16.5c1.2 1.8 3.1 3 5.6 3 2.7 0 4.8-1.1 6.4-3.4"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+];
+
+const socialProofBlocks = [
+  {
+    logo: "RE/MAX",
+    name: "RE/MAX Brasil",
+    context: "Rede nacional com times e franqueados em múltiplas regiões.",
+    helps: "Organizo recados importantes, decisões e links do dia a dia para o grupo ficar leve e rastreável.",
+    testimonial:
+      "Antes a informação se perdia rápido. Com os resumos, o time se entende melhor e eu parei de responder a mesma coisa toda semana.",
+  },
+  {
+    logo: "OCT",
+    name: "Octadesk",
+    context: "Startup com comunicação intensa entre áreas e times de suporte.",
+    helps: "Transformo conversas corridas em clareza: próximos passos, dúvidas recorrentes e alinhamentos viram resumo.",
+    testimonial:
+      "A sensação foi de silêncio bom: menos ruído, mais objetivo. Quem chega depois consegue se situar sem pedir contexto do zero.",
+  },
+  {
+    logo: "B2",
+    name: "B2Mamy",
+    context: "Comunidade grande com pessoas em diferentes momentos de carreira.",
+    helps: "Ajudo a manter acolhimento sem sobrecarga, deixando claro o que é essencial para acompanhar.",
+    testimonial:
+      "O grupo ficou mais humano. A gente continua conversando, só que agora dá para respirar e entender o que está acontecendo.",
+  },
+  {
+    logo: "OS",
+    name: "Olivia Sensata",
+    context: "Criadora com comunidade ativa e conversas sensíveis no dia a dia.",
+    helps: "Organizo sem engessar: separo o que foi importante, sem tirar o tom e a proximidade do grupo.",
+    testimonial:
+      "O resumo tem um tom que parece gente. Não vira relatório. Ajuda a acolher quem não conseguiu acompanhar sem culpa.",
+  },
+  {
+    logo: "RV",
+    name: "Rodrigo Vinhas",
+    context: "Líder e criador com grupos que misturam networking e troca prática.",
+    helps: "Dou visão e cadência: tópicos fortes, tarefas e decisões ficam fáceis de achar e repassar.",
+    testimonial:
+      "O que mais mudou foi o pós-conversa. Antes era tudo 'sumiu no chat'. Agora eu consigo transformar debate em ação.",
+  },
+  {
+    logo: "SCALE",
+    name: "SCALE (Leandro Ferrari)",
+    context: "Comunidade com alta frequência de mensagens e muita troca entre membros.",
+    helps: "Reduzo repetição e deixo o essencial claro, para o grupo crescer sem virar exaustão.",
+    testimonial:
+      "Não é mágica — só organização bem feita. O grupo segue vivo, mas com mais clareza. Isso muda o ritmo e a qualidade.",
+  },
+];
+
 function LogoMark({ className }: { className?: string }) {
   return (
     <div className={cn("inline-flex items-center gap-2", className)}>
@@ -186,17 +459,30 @@ function LogoMark({ className }: { className?: string }) {
 
 function HeroImage() {
   return (
-    <div className="w-full max-w-4xl">
+    <div className="w-full">
       <div
-        className="overflow-hidden rounded-3xl bg-background shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
-        style={{ aspectRatio: "16 / 9" }}
+        className="relative overflow-hidden rounded-3xl border border-border bg-card/50 shadow-[0_14px_40px_rgba(0,0,0,0.06)]"
+        style={{ aspectRatio: "4 / 3" }}
       >
         <img
           src="/images/hero-boris.png"
-          alt="Ilustração do Bóris organizando conversas no WhatsApp"
+          alt="Bóris em um ambiente calmo, com um painel leve de métricas ao lado"
           className="h-full w-full object-cover"
           loading="eager"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent" />
+        <div className="pointer-events-none absolute -left-14 -top-14 h-52 w-52 rounded-full bg-brand/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+
+        <div className="absolute bottom-5 left-5 w-[70%] overflow-hidden rounded-2xl border border-border bg-background/80 shadow-[0_18px_48px_rgba(0,0,0,0.10)] backdrop-blur sm:w-[58%]">
+          <img
+            src="/images/boris-organization.png"
+            alt=""
+            aria-hidden
+            className="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
       </div>
     </div>
   );
@@ -230,107 +516,75 @@ export function HomePage() {
       </header>
 
       <main id="top" className="mx-auto w-full max-w-6xl px-6">
-        <section className="flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
-          <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center text-center">
-            <HeroImage />
+        <section className="relative flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
+          <div className="pointer-events-none absolute -top-10 left-1/2 h-72 w-[min(980px,100%)] -translate-x-1/2 rounded-full bg-brand/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-16 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 
-            <h1 className="mt-8 text-4xl font-medium leading-[1.1] tracking-tight md:text-6xl">
-              Um grupo de WhatsApp junta pessoas.
-              <span className="block text-brand">O Bóris transforma isso em comunidade.</span>
-            </h1>
-
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              Eu organizo as conversas, resumo o que importa, meço o engajamento e ajudo você a mostrar o valor real da sua
-              comunidade, sem tirar ninguém do WhatsApp.
-            </p>
-
-            <div className="mt-8 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-6">
-              <Button asChild size="default" className="h-11 rounded-lg px-6">
-                <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
-                  Falar com o criador do Bóris
-                </a>
-              </Button>
-
-              <a
-                href="#como-funciona"
-                className="w-fit text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-              >
-                Entender melhor primeiro
-              </a>
+          <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
+            <div className="order-first lg:order-none">
+              <HeroImage />
             </div>
 
-            <div className="mt-3 text-xs text-muted-foreground">Atendimento direto pelo WhatsApp. Sem robô, sem fila.</div>
+            <div className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
+              <h1 className="text-4xl font-medium leading-[1.1] tracking-tight md:text-6xl">
+                <span className="block">Um grupo de WhatsApp junta pessoas.</span>
+                <span className="block">
+                  O <span className="text-brand">Bóris</span> cuida para que isso vire comunidade.
+                </span>
+              </h1>
+
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                Eu organizo, resumo, meço engajamento e ajudo você a mostrar o valor real da sua comunidade — sem tirar ninguém
+                do WhatsApp.
+              </p>
+
+              <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-4">
+                <Button asChild size="default" className="h-11 rounded-lg px-6">
+                  <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                    Falar com o criador do Bóris
+                  </a>
+                </Button>
+
+                <Button asChild size="default" variant="outline" className="h-11 rounded-lg px-6">
+                  <a href="#como-funciona">Quero entender melhor primeiro</a>
+                </Button>
+              </div>
+
+              <div className="mt-3 text-xs text-muted-foreground">Atendimento direto no WhatsApp. Sem robô, sem fila.</div>
+            </div>
           </div>
         </section>
 
         <section id="problemas" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div>
-              <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
-                O Problema do Gestor de Comunidade
-              </div>
-              <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">
-                Ser gestor de comunidade dá trabalho. Muito trabalho.
-              </h2>
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
+              💬 Conversas em grupos de WhatsApp geralmente têm esses desafios…
+            </h2>
 
-              <div className="mt-5 max-w-xl">
-                <div className="space-y-3 rounded-2xl bg-muted/30 px-5 py-4 text-sm leading-relaxed text-muted-foreground ring-1 ring-border/25 md:px-6 md:py-5 md:text-base">
-                  <p>Conversas o dia inteiro.</p>
-                  <p>Mensagens acumulando.</p>
-                  <p>Gente esperando resposta.</p>
-                  <p>E a sensação constante de que algo importante pode ter passado despercebido.</p>
-                </div>
+            <div className="mt-10">
+              <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/20 px-5 py-6 shadow-[0_14px_40px_rgba(0,0,0,0.05)] md:px-8 md:py-8">
+                <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
 
-                <div className="mt-7 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
-                  Na prática, você segura tudo isso ao mesmo tempo
-                </div>
-
-                <ul className="mt-4 grid gap-3 text-sm leading-relaxed">
-                  {[
-                    "acompanhar tudo o que acontece",
-                    "responder quando precisam de você",
-                    "organizar decisões e informações",
-                    "provar o valor da comunidade para parceiros e liderança",
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className="group relative overflow-hidden rounded-2xl bg-background/70 px-4 py-4 text-foreground/90 ring-1 ring-border/25 transition hover:bg-background/85 hover:ring-border/40 hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
-                    >
-                      <div className="flex items-start gap-3">
-                        <span
-                          className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/15"
-                          aria-hidden
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />
-                        </span>
-                        <span className="font-medium tracking-tight">{item}</span>
+                <div className="mx-auto flex max-w-3xl flex-col gap-4">
+                  {realProblemsMessages.map((message) => (
+                    <div key={message.title} className="flex">
+                      <div className="max-w-[92%] rounded-2xl border border-border bg-background/90 px-4 py-4 shadow-[0_10px_28px_rgba(0,0,0,0.06)] backdrop-blur md:max-w-[78%]">
+                        <div className="text-xs font-medium tracking-tight text-muted-foreground">{message.sender}</div>
+                        <div className="mt-1 text-sm font-semibold tracking-tight text-foreground">{message.title}</div>
+                        <div className="mt-2 text-sm leading-[1.75] text-muted-foreground whitespace-pre-line">
+                          {message.body}
+                        </div>
                       </div>
-                      <span
-                        className="pointer-events-none absolute -left-10 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl transition group-hover:bg-primary/15"
-                        aria-hidden
-                      />
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
+              </div>
+
+              <div className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
+                Essas são dores reais de líderes de comunidade que já usam o Bóris.
               </div>
             </div>
-
-            <figure
-              className="relative overflow-hidden rounded-3xl bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
-              style={{ aspectRatio: "4 / 3" }}
-            >
-              <img
-                src="/images/boris-atarefado.jpg"
-                alt="Gestor de comunidade acompanhando mensagens e decisões enquanto trabalha"
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-background/10 to-transparent" />
-              <div className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-2xl" />
-              <div className="pointer-events-none absolute -bottom-14 -right-10 h-44 w-44 rounded-full bg-muted/70 blur-3xl" />
-              <div className="pointer-events-none absolute right-10 top-10 h-12 w-20 rounded-2xl bg-primary/10 blur-xl" />
-              <div className="pointer-events-none absolute right-24 top-24 h-10 w-16 rounded-2xl bg-muted/60 blur-xl" />
-            </figure>
           </div>
         </section>
 
@@ -424,30 +678,316 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="cta" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-10 md:px-10">
-            <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-center">
-              <div>
-                <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Placeholder: pronto para dar clareza ao grupo?</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  Placeholder: fale com o Bóris no WhatsApp e veja como a organização aparece sem pesar no dia a dia.
-                </p>
-              </div>
+        <section id="como-ajuda" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Como o Bóris ajuda a sua comunidade</h2>
 
-              <div className="flex flex-col gap-3 sm:flex-row md:justify-end">
-                <Button asChild size="lg" className="rounded-full">
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {borisHelpsCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                      aria-hidden
+                    >
+                      <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{card.icon}</span>
+                    </span>
+
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold tracking-tight text-foreground">{card.title}</div>
+                      <div className="mt-3 text-sm leading-[1.75] text-muted-foreground">{card.description}</div>
+
+                      <ul className="mt-5 space-y-2 text-xs leading-relaxed text-muted-foreground">
+                        {card.benefits.map((benefit) => (
+                          <li key={benefit} className="flex items-start gap-2">
+                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-muted-foreground/60" aria-hidden />
+                            <span>{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <span
+                    className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand/10 blur-3xl transition group-hover:bg-brand/15"
+                    aria-hidden
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="beneficios" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div>
+              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
+                Para quem participa, tudo fica mais leve
+              </h2>
+              <p className="mt-4 text-sm leading-[1.75] text-muted-foreground">Com o Bóris, os membros do grupo:</p>
+
+              <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                {memberBenefits.map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/60" aria-hidden />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-8 text-sm font-medium text-foreground">Mais pertencimento. Menos cansaço.</p>
+            </div>
+
+            <figure
+              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+              style={{ aspectRatio: "4 / 3" }}
+            >
+              <img
+                src="/images/boris-atarefado.jpg"
+                alt="Uma pessoa tranquila, confortável, usando o WhatsApp"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
+              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+            </figure>
+          </div>
+        </section>
+
+        <section id="passo-a-passo" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">Simples. Sem atrito.</h2>
+
+            <div className="relative mt-10">
+              <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-px bg-border/70 md:left-10 md:right-10 md:top-5 md:bottom-auto md:h-px md:w-auto" />
+
+              <ol className="grid gap-4 md:grid-cols-5 md:gap-5">
+                {howItWorksSteps.map((step, index) => (
+                  <li key={step.title} className="relative flex gap-4 md:flex-col md:items-center md:gap-5">
+                    <div className="relative z-10 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold tracking-tight">
+                      {index + 1}
+                    </div>
+
+                    <div className="w-full rounded-2xl border border-border bg-card/60 px-5 py-5 md:text-center">
+                      <div className="flex items-center gap-3 md:flex-col md:gap-3">
+                        <span
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                          aria-hidden
+                        >
+                          <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{step.icon}</span>
+                        </span>
+                        <div className="text-sm font-semibold tracking-tight text-foreground">{step.title}</div>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-border py-16 lg:py-24">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">
+              O Bóris organiza, resume e mede o que acontece no seu grupo — sem tirar ninguém do WhatsApp.
+            </h2>
+
+            <div className="mt-10">
+              <Button asChild size="lg" className="h-12 rounded-full px-8">
+                <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                  Quero falar sobre meu grupo
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-border py-14 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div>
+              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
+                Comunidade boa é viva, humana — e dá trabalho.
+              </h2>
+
+              <div className="mt-5 max-w-xl space-y-6 text-sm leading-[1.75] text-muted-foreground">
+                <div>
+                  <p>Se você lidera um grupo no WhatsApp, já percebeu:</p>
+                  <ul className="mt-4 list-disc space-y-2 pl-5">
+                    <li>as conversas acontecem ali</li>
+                    <li>as conexões nascem ali</li>
+                    <li>as oportunidades surgem ali</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <p>Mas sem clareza e dados, fica difícil:</p>
+                  <ul className="mt-4 list-disc space-y-2 pl-5">
+                    <li>mostrar valor</li>
+                    <li>tomar boas decisões</li>
+                    <li>reduzir churn</li>
+                    <li>cuidar bem das pessoas</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="font-medium text-foreground">É aí que eu entro.</p>
+                  <p>
+                    Eu estou aqui para te dar visão, organização e tranquilidade — sem complicar nada.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <figure
+              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+              style={{ aspectRatio: "4 / 3" }}
+            >
+              <img
+                src="/images/boris-atarefado.jpg"
+                alt="Gestor de comunidade com celular em um ambiente calmo, com conversas acontecendo ao fundo"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
+              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+            </figure>
+          </div>
+        </section>
+
+        <section id="clientes" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
+              Eu já ajudo grandes comunidades no Brasil
+            </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-[1.75] text-muted-foreground">
+              De startups a grandes redes, o Bóris organiza conversas e transforma comunidades em espaços mais saudáveis.
+            </p>
+
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {socialProofBlocks.map((item) => (
+                <div
+                  key={item.name}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-border bg-background/70">
+                      <span className="text-[11px] font-semibold tracking-[0.18em] text-foreground/80">
+                        {item.logo}
+                      </span>
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold tracking-tight text-foreground">{item.name}</div>
+                      <div className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.context}</div>
+
+                      <div className="mt-5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
+                        Como o Bóris ajuda
+                      </div>
+                      <div className="mt-2 text-sm leading-[1.75] text-muted-foreground">{item.helps}</div>
+
+                      <div className="mt-5 border-l border-border pl-4 text-sm leading-[1.75] text-foreground/80">
+                        “{item.testimonial}”
+                      </div>
+                    </div>
+                  </div>
+
+                  <span
+                    className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/10 blur-3xl transition group-hover:bg-brand/15"
+                    aria-hidden
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-border py-14 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div>
+              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">Você fala direto comigo.</h2>
+              <p className="mt-4 max-w-xl text-sm leading-[1.75] text-muted-foreground">
+                Eu sou o criador do Bóris e acompanho pessoalmente os primeiros clientes. Quero entender seu contexto e ajudar a
+                transformar seu grupo numa comunidade de verdade.
+              </p>
+
+              <div className="mt-8">
+                <Button asChild size="lg" className="h-12 rounded-full px-8">
                   <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
-                    Placeholder: abrir conversa
+                    Falar com o criador no WhatsApp
                   </a>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="rounded-full">
-                  <a href="#top">Voltar ao topo</a>
                 </Button>
               </div>
             </div>
 
-            <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+            <figure
+              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+              style={{ aspectRatio: "4 / 3" }}
+            >
+              <img
+                src="/images/boris-atarefado.jpg"
+                alt="Foto humana e acolhedora de alguém conversando com calma pelo WhatsApp"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
+              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+            </figure>
+          </div>
+        </section>
+
+        <section id="cta" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-10 md:px-10">
+            <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+              <div>
+                <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">Plano e preço</div>
+                <h2 className="mt-3 text-balance text-xl font-semibold tracking-tight md:text-2xl">
+                  Um único plano. Claro e transparente.
+                </h2>
+                <p className="mt-4 max-w-2xl text-sm leading-[1.75] text-muted-foreground">
+                  E você ainda fala direto comigo para configurar o início. Se a sua realidade envolve muitos grupos, a gente
+                  conversa e ajusta juntos.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-5 md:items-end">
+                <div className="w-full rounded-2xl border border-border bg-background/60 p-6 text-left md:max-w-sm md:text-right">
+                  <div className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">R$ 247</div>
+                  <div className="mt-1 text-sm text-muted-foreground">por mês, por grupo</div>
+                </div>
+                <Button asChild size="lg" className="h-12 rounded-full px-8">
+                  <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                    Ativar o Bóris no meu grupo
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+          </div>
+        </section>
+
+        <section className="border-t border-border py-16 lg:py-24">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">
+              O Bóris cuida da sua comunidade. <span className="block">Você cuida das pessoas.</span>
+            </h2>
+
+            <div className="mt-10">
+              <Button asChild size="lg" className="h-12 rounded-full px-8">
+                <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                  Falar com o criador do Bóris
+                </a>
+              </Button>
+            </div>
+
+            <div className="mt-3 text-xs text-muted-foreground">Atendimento direto com o criador do Bóris.</div>
           </div>
         </section>
 
@@ -456,9 +996,9 @@ export function HomePage() {
             <div className="flex items-center gap-2">
               <LogoMark className="scale-[0.98]" />
               <span>•</span>
-              <span>Placeholder: assistente para comunidades no WhatsApp</span>
+              <span>Assistente para comunidades no WhatsApp</span>
             </div>
-            <div className="text-muted-foreground/80">Placeholder: política, contato, etc.</div>
+            <div className="text-muted-foreground/80">© {new Date().getFullYear()} Bóris</div>
           </div>
         </footer>
       </main>

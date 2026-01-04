@@ -13,23 +13,150 @@ const navItems = [
 const organizeCards = [
   {
     title: "Organiza sem interromper",
-    description: "Placeholder: o grupo continua no WhatsApp, com mais clareza e menos ruído.",
+    description:
+      "O grupo segue conversando do jeito que já conversa. O Bóris só coloca ordem no que está solto — com discrição.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M5 9.5c1.5-2 3.5-3 6-3 2.2 0 3.9.7 5.2 2.1"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7 14.5c1.1 1.8 3 3 5.6 3 2.5 0 4.6-1.2 6.4-3.5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
   },
   {
     title: "Resume o que realmente importa",
-    description: "Placeholder: decisões, tarefas e destaques viram um resumo que dá para confiar.",
+    description:
+      "Decisões, tarefas, links e próximos passos viram um resumo curto — fácil de repassar e bom de confiar.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M7 7h10M7 12h6M7 17h10"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M17.5 12.5 19 14l3-3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
   },
   {
     title: "Mostra o valor da comunidade",
-    description: "Placeholder: sinais simples de participação para líderes e administradores.",
+    description:
+      "Sinais claros de participação e temas fortes do grupo ajudam você a enxergar impacto — e mostrar valor com segurança.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M8.5 10.5a3 3 0 1 1 6 0c0 1.6-1 2.7-2.1 3.5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M5.5 19c1.3-2.4 3.7-4 6.5-4s5.2 1.6 6.5 4"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
   },
 ];
 
-const metricTiles = [
-  { label: "Participação", value: "—%", helper: "Placeholder" },
-  { label: "Mensagens-chave", value: "—", helper: "Placeholder" },
-  { label: "Picos de conversa", value: "—", helper: "Placeholder" },
-  { label: "Resumo semanal", value: "—", helper: "Placeholder" },
+const communitySignals = [
+  {
+    title: "Participação da comunidade",
+    description: "O quanto as pessoas estão presentes e ativas nas conversas.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M7.5 10.5c0-2.2 1.9-4 4.3-4h.4c2.4 0 4.3 1.8 4.3 4 0 1.2-.5 2.2-1.4 3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M6 19c1.3-2.5 3.8-4 6.2-4s4.9 1.5 5.8 4"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Temas mais comentados",
+    description: "Os assuntos que mais mobilizaram o grupo no período.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M7 7h10M7 12h10M7 17h6"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M16.5 17a3 3 0 0 0 3-3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Momentos de pico",
+    description: "Quando as conversas mais acontecem no grupo.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M12 7v5l3 2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Resumo da semana",
+    description: "Um resumo curto com os principais pontos e próximos passos.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path
+          d="M8 7h8M8 11h8M8 15h5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7.5 3.8h9A2.7 2.7 0 0 1 19.2 6.5v11A2.7 2.7 0 0 1 16.5 20.2h-9A2.7 2.7 0 0 1 4.8 17.5v-11A2.7 2.7 0 0 1 7.5 3.8Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+      </svg>
+    ),
+  },
 ];
 
 function LogoMark({ className }: { className?: string }) {
@@ -193,7 +320,7 @@ export function HomePage() {
               style={{ aspectRatio: "4 / 3" }}
             >
               <img
-                src="/images/boris-problems.png"
+                src="/images/boris-atarefado.jpg"
                 alt="Gestor de comunidade acompanhando mensagens e decisões enquanto trabalha"
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -208,46 +335,39 @@ export function HomePage() {
         </section>
 
         <section id="como-funciona" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <div>
-              <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Organização sem tirar ninguém do lugar</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                Placeholder: o Bóris é um guia gentil. Ele organiza, resume e traz clareza — com calma e sem ruído.
-              </p>
+          <div className="mx-auto max-w-5xl">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">Como funciona</div>
+            <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">Organização sem tirar ninguém do lugar</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-[1.75] text-muted-foreground">
+              O Bóris acompanha a conversa com calma e, nos momentos certos, transforma volume em clareza. Sem forçar formato,
+              sem mudar o comportamento das pessoas — e sem tirar ninguém do WhatsApp.
+            </p>
 
-              <div className="mt-7 grid gap-4 md:grid-cols-3">
-                {organizeCards.map((card) => (
-                  <div key={card.title} className="rounded-2xl border border-border bg-card p-5">
-                    <div className="text-sm font-semibold tracking-tight">{card.title}</div>
-                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.description}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {organizeCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5"
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                      aria-hidden
+                    >
+                      <span className="h-4 w-4 [&>svg]:h-4 [&>svg]:w-4">{card.icon}</span>
+                    </span>
 
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <div className="text-sm font-semibold tracking-tight">Placeholder: como aparece no grupo</div>
-              <div className="mt-4 space-y-3">
-                {[
-                  {
-                    label: "Resumo",
-                    text: "Placeholder: um resumo curto que dá contexto sem cansar.",
-                  },
-                  {
-                    label: "Pontos-chave",
-                    text: "Placeholder: decisões, tarefas e links em blocos bem separados.",
-                  },
-                  {
-                    label: "Ritmo",
-                    text: "Placeholder: o Bóris aparece quando faz sentido, não o tempo todo.",
-                  },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-xl border border-border bg-background px-4 py-3">
-                    <div className="text-xs font-medium text-muted-foreground">{item.label}</div>
-                    <div className="mt-1 text-sm leading-relaxed">{item.text}</div>
+                    <div>
+                      <div className="text-sm font-semibold tracking-tight text-foreground">{card.title}</div>
+                      <div className="mt-3 text-sm leading-[1.75] text-muted-foreground">{card.description}</div>
+                    </div>
                   </div>
-                ))}
-              </div>
+                  <span
+                    className="pointer-events-none absolute -left-14 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl transition group-hover:bg-primary/15"
+                    aria-hidden
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -257,80 +377,50 @@ export function HomePage() {
             <div>
               <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Métricas simples, sem cara de planilha</h2>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Placeholder: sinais claros para líderes entenderem participação, momentos fortes e valor gerado.
+                Sinais claros para entender participação, momentos fortes e valor gerado.
               </p>
 
-              <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                {metricTiles.map((tile) => (
-                  <div key={tile.label} className="rounded-2xl border border-border bg-card p-5">
-                    <div className="text-xs font-medium text-muted-foreground">{tile.label}</div>
-                    <div className="mt-2 text-2xl font-semibold tracking-tight">{tile.value}</div>
-                    <div className="mt-2 text-xs text-muted-foreground">{tile.helper}</div>
+              <div className="mt-8 grid gap-3">
+                {communitySignals.map((signal) => (
+                  <div
+                    key={signal.title}
+                    className="group relative overflow-hidden rounded-2xl border border-border bg-card/60 px-5 py-5 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
+                        className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                        aria-hidden
+                      >
+                        <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{signal.icon}</span>
+                      </span>
+                      <div>
+                        <div className="text-sm font-semibold tracking-tight text-foreground">{signal.title}</div>
+                        <div className="mt-2 text-sm leading-[1.75] text-muted-foreground">{signal.description}</div>
+                      </div>
+                    </div>
+                    <span
+                      className="pointer-events-none absolute -left-14 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl transition group-hover:bg-primary/15"
+                      aria-hidden
+                    />
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-semibold tracking-tight">Placeholder: painel</div>
-                  <div className="mt-1 text-xs text-muted-foreground">Resumo, organização e engajamento</div>
-                </div>
-                <div className="rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground">
-                  Atualizado agora
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-border bg-background p-4">
-                  <div className="text-xs font-medium text-muted-foreground">Top temas</div>
-                  <div className="mt-3 space-y-2">
-                    {[
-                      { label: "Placeholder", pct: "—" },
-                      { label: "Placeholder", pct: "—" },
-                      { label: "Placeholder", pct: "—" },
-                    ].map((item, idx) => (
-                      <div key={`${item.label}-${idx}`} className="flex items-center justify-between gap-3">
-                        <div className="text-sm">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.pct}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-border bg-background p-4">
-                  <div className="text-xs font-medium text-muted-foreground">Resumo da semana</div>
-                  <div className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Placeholder: um parágrafo curto com os principais pontos e próximos passos.
-                  </div>
-                  <div className="mt-4 rounded-lg border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
-                    Placeholder: 3 itens em lista
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-xl border border-border bg-background p-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-xs font-medium text-muted-foreground">Atividade</div>
-                  <div className="text-xs text-muted-foreground">Placeholder</div>
-                </div>
-                <svg
-                  className="mt-4 h-20 w-full"
-                  viewBox="0 0 240 80"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden
-                >
-                  <path
-                    d="M8 52 C30 46, 54 58, 80 44 C108 30, 130 60, 156 40 C184 18, 202 30, 232 22"
-                    className="stroke-brand"
-                    strokeWidth="2.25"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-            </div>
+            <figure
+              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+              style={{ aspectRatio: "4 / 3" }}
+            >
+              <img
+                src="/images/boris-organization.png"
+                alt="Ilustração do painel do Bóris mostrando sinais claros da comunidade"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-background/10 to-transparent" />
+              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-muted/70 blur-3xl" />
+            </figure>
           </div>
         </section>
 

@@ -50,4 +50,22 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    background-color: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
 }

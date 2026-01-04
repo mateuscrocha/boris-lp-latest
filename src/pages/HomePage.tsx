@@ -1,12 +1,21 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const whatsappCtaHref = "https://wa.me/0000000000000";
+const whatsappBaseHref = "https://wa.me/5561981569893";
+const onboardingHref = "https://central.euboris.com.br/onboarding";
+
+function buildWhatsappHref(message: string) {
+  return `${whatsappBaseHref}?text=${encodeURIComponent(message)}`;
+}
 
 const navItems = [
   { label: "Problemas", href: "#problemas" },
   { label: "Como funciona", href: "#como-funciona" },
   { label: "Painel", href: "#painel" },
+  { label: "Manifesto Bóris", href: "/manifesto" },
   { label: "Começar", href: "#cta" },
 ];
 
@@ -383,7 +392,7 @@ const howItWorksSteps = [
 
 const socialProofBlocks = [
   {
-    logo: "RE/MAX",
+    logoSrc: "/images/remax.png",
     name: "RE/MAX Brasil",
     context: "Rede nacional com times e franqueados em múltiplas regiões.",
     helps: "Organizo recados importantes, decisões e links do dia a dia para o grupo ficar leve e rastreável.",
@@ -391,7 +400,7 @@ const socialProofBlocks = [
       "Antes a informação se perdia rápido. Com os resumos, o time se entende melhor e eu parei de responder a mesma coisa toda semana.",
   },
   {
-    logo: "OCT",
+    logoSrc: "/images/octadesk.png",
     name: "Octadesk",
     context: "Startup com comunicação intensa entre áreas e times de suporte.",
     helps: "Transformo conversas corridas em clareza: próximos passos, dúvidas recorrentes e alinhamentos viram resumo.",
@@ -399,7 +408,7 @@ const socialProofBlocks = [
       "A sensação foi de silêncio bom: menos ruído, mais objetivo. Quem chega depois consegue se situar sem pedir contexto do zero.",
   },
   {
-    logo: "B2",
+    logoSrc: "/images/b2mamy.png",
     name: "B2Mamy",
     context: "Comunidade grande com pessoas em diferentes momentos de carreira.",
     helps: "Ajudo a manter acolhimento sem sobrecarga, deixando claro o que é essencial para acompanhar.",
@@ -407,7 +416,7 @@ const socialProofBlocks = [
       "O grupo ficou mais humano. A gente continua conversando, só que agora dá para respirar e entender o que está acontecendo.",
   },
   {
-    logo: "OS",
+    logoSrc: "/images/oliviasensata.png",
     name: "Olivia Sensata",
     context: "Criadora com comunidade ativa e conversas sensíveis no dia a dia.",
     helps: "Organizo sem engessar: separo o que foi importante, sem tirar o tom e a proximidade do grupo.",
@@ -415,7 +424,7 @@ const socialProofBlocks = [
       "O resumo tem um tom que parece gente. Não vira relatório. Ajuda a acolher quem não conseguiu acompanhar sem culpa.",
   },
   {
-    logo: "RV",
+    logoSrc: "/images/rodrigovinhas.png",
     name: "Rodrigo Vinhas",
     context: "Líder e criador com grupos que misturam networking e troca prática.",
     helps: "Dou visão e cadência: tópicos fortes, tarefas e decisões ficam fáceis de achar e repassar.",
@@ -423,7 +432,7 @@ const socialProofBlocks = [
       "O que mais mudou foi o pós-conversa. Antes era tudo 'sumiu no chat'. Agora eu consigo transformar debate em ação.",
   },
   {
-    logo: "SCALE",
+    logoSrc: "/images/leandroferrari.png",
     name: "SCALE (Leandro Ferrari)",
     context: "Comunidade com alta frequência de mensagens e muita troca entre membros.",
     helps: "Reduzo repetição e deixo o essencial claro, para o grupo crescer sem virar exaustão.",
@@ -434,25 +443,8 @@ const socialProofBlocks = [
 
 function LogoMark({ className }: { className?: string }) {
   return (
-    <div className={cn("inline-flex items-center gap-2", className)}>
-      <span
-        className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-card"
-        aria-hidden
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M12 2c3 3 5 6 5 9a5 5 0 0 1-10 0c0-2.5 1.2-4.8 5-9Z"
-            className="fill-brand"
-          />
-          <path
-            d="M8.5 13.5c.6 3.4 2.6 5.5 5.5 8.5 2.3-2 3.8-3.6 4.3-5.8"
-            className="stroke-brand"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      </span>
-      <span className="text-sm font-semibold tracking-tight">Bóris</span>
+    <div className={cn("inline-flex items-center", className)}>
+      <img src="/images/logo.png" alt="Bóris" className="h-8 w-auto" loading="eager" />
     </div>
   );
 }
@@ -461,27 +453,106 @@ function HeroImage() {
   return (
     <div className="w-full">
       <div
-        className="relative overflow-hidden rounded-3xl border border-border bg-card/50 shadow-[0_14px_40px_rgba(0,0,0,0.06)]"
+        className="relative overflow-hidden rounded-3xl bg-transparent"
         style={{ aspectRatio: "4 / 3" }}
       >
         <img
-          src="/images/hero-boris.png"
+          src="/images/boris-hero.png"
           alt="Bóris em um ambiente calmo, com um painel leve de métricas ao lado"
           className="h-full w-full object-cover"
           loading="eager"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent" />
-        <div className="pointer-events-none absolute -left-14 -top-14 h-52 w-52 rounded-full bg-brand/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-brand/10 blur-3xl" />
+      </div>
+    </div>
+  );
+}
 
-        <div className="absolute bottom-5 left-5 w-[70%] overflow-hidden rounded-2xl border border-border bg-background/80 shadow-[0_18px_48px_rgba(0,0,0,0.10)] backdrop-blur sm:w-[58%]">
-          <img
-            src="/images/boris-organization.png"
-            alt=""
-            aria-hidden
-            className="h-full w-full object-cover"
-            loading="eager"
+function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [showFallback, setShowFallback] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    const fallbackTimer = window.setTimeout(() => {
+      setShowFallback(true);
+    }, 2500);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+      window.clearTimeout(fallbackTimer);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const shouldShowFallback = showFallback && !iframeLoaded;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/40" onMouseDown={onClose} />
+      <div
+        className="relative flex h-dvh w-dvw flex-col bg-background md:h-[90vh] md:w-[min(1100px,calc(100vw-3rem))] md:overflow-hidden md:rounded-2xl md:border md:border-border md:shadow-[0_20px_60px_rgba(0,0,0,0.10)]"
+        onMouseDown={(event) => event.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Cadastro do Bóris"
+      >
+        <div className="relative flex-1 overflow-hidden">
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-background/80 text-muted-foreground backdrop-blur hover:bg-accent/50 hover:text-foreground"
+            aria-label="Fechar"
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden className="h-5 w-5">
+              <path d="M6 6l12 12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+              <path d="M18 6 6 18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          <iframe
+            title="Cadastro do Bóris"
+            src={onboardingHref}
+            className="h-full w-full"
+            onLoad={() => {
+              setIframeLoaded(true);
+              setShowFallback(false);
+            }}
+            referrerPolicy="no-referrer"
+            allow="clipboard-read; clipboard-write"
           />
+
+          {shouldShowFallback ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-background/70 px-6 text-center backdrop-blur-[2px]">
+              <div>
+                <div className="max-w-md text-sm leading-relaxed text-muted-foreground">
+                  Não foi possível carregar o cadastro aqui dentro.
+                </div>
+                <div className="mt-6">
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="h-11 rounded-full border-border/60 bg-transparent px-6 text-muted-foreground hover:bg-accent/40 hover:text-foreground"
+                  >
+                    <a href={onboardingHref} target="_blank" rel="noreferrer">
+                      Abrir cadastro do Bóris em nova aba
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
@@ -489,26 +560,129 @@ function HeroImage() {
 }
 
 export function HomePage() {
+  const [onboardingOpen, setOnboardingOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileNavOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileNavOpen]);
+
   return (
     <div className="min-h-dvh bg-background text-foreground">
+      {onboardingOpen ? <OnboardingModal open onClose={() => setOnboardingOpen(false)} /> : null}
+      {mobileNavOpen ? (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div className="absolute inset-0 bg-black/40" onMouseDown={() => setMobileNavOpen(false)} />
+          <div
+            className="absolute left-4 right-4 top-4 overflow-hidden rounded-2xl border border-border bg-background shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
+            onMouseDown={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+          >
+            <div className="flex items-center justify-between border-b border-border/60 px-5 py-4">
+              <div className="text-sm font-medium tracking-tight text-foreground">Menu</div>
+              <button
+                type="button"
+                onClick={() => setMobileNavOpen(false)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                aria-label="Fechar"
+              >
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden className="h-5 w-5">
+                  <path d="M6 6l12 12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                  <path d="M18 6 6 18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-2">
+              {navItems.map((item) =>
+                item.href.startsWith("/") ? (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      ) : null}
       <header className="border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-5">
           <a href="#top" className="shrink-0">
             <LogoMark />
           </a>
 
-          <nav className="hidden items-center gap-5 text-sm md:flex">
-            {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="text-muted-foreground hover:text-foreground">
-                {item.label}
-              </a>
-            ))}
+          <nav className="hidden items-center gap-6 text-sm md:flex">
+            {navItems.map((item) =>
+              item.href.startsWith("/") ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="rounded-md px-2 py-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-md px-2 py-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              className="h-10 w-10 rounded-full p-0 md:hidden"
+              onClick={() => setMobileNavOpen(true)}
+              aria-label="Abrir menu"
+              aria-expanded={mobileNavOpen}
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden className="h-5 w-5">
+                <path d="M4 7h16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path d="M4 12h16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path d="M4 17h16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+              </svg>
+            </Button>
             <Button asChild size="sm" className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
-              <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
-                Abrir no WhatsApp
+              <a href="#cta">
+                <span className="hidden sm:inline">Colocar o Bóris no meu grupo</span>
+                <span className="sm:hidden">Ativar Bóris</span>
               </a>
             </Button>
           </div>
@@ -540,7 +714,11 @@ export function HomePage() {
 
               <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-4">
                 <Button asChild size="default" className="h-11 rounded-lg bg-brand px-6 text-brand-foreground hover:bg-brand/90">
-                  <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                  <a
+                    href={buildWhatsappHref("Oi! Vim pela landing do Bóris e quero falar com o criador.")}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Falar com o criador do Bóris
                   </a>
                 </Button>
@@ -561,27 +739,38 @@ export function HomePage() {
               💬 Conversas em grupos de WhatsApp geralmente têm esses desafios…
             </h2>
 
-            <div className="mt-10">
-              <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/20 px-5 py-6 shadow-[0_14px_40px_rgba(0,0,0,0.05)] md:px-8 md:py-8">
+            <div className="mt-12">
+              <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/20 px-6 py-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:px-10 md:py-10">
                 <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
                 <div className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
 
-                <div className="mx-auto flex max-w-3xl flex-col gap-4">
-                  {realProblemsMessages.map((message) => (
-                    <div key={message.title} className="flex">
-                      <div className="max-w-[92%] rounded-2xl border border-border bg-background/90 px-4 py-4 shadow-[0_10px_28px_rgba(0,0,0,0.06)] backdrop-blur md:max-w-[78%]">
-                        <div className="text-xs font-medium tracking-tight text-muted-foreground">{message.sender}</div>
-                        <div className="mt-1 text-sm font-semibold tracking-tight text-foreground">{message.title}</div>
-                        <div className="mt-2 text-sm leading-[1.75] text-muted-foreground whitespace-pre-line">
-                          {message.body}
+                <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-12">
+                  <div className="flex flex-col gap-5 md:gap-6">
+                    {realProblemsMessages.map((message) => (
+                      <div key={message.title} className="flex">
+                        <div className="max-w-[92%] rounded-2xl border border-border bg-background/90 px-5 py-5 shadow-[0_10px_28px_rgba(0,0,0,0.06)] backdrop-blur md:max-w-[78%]">
+                          <div className="text-xs font-medium tracking-tight text-muted-foreground">{message.sender}</div>
+                          <div className="mt-1 text-sm font-semibold tracking-tight text-foreground">{message.title}</div>
+                          <div className="mt-2 text-sm leading-[1.75] text-muted-foreground whitespace-pre-line">
+                            {message.body}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  <figure className="relative overflow-hidden rounded-2xl bg-transparent">
+                    <img
+                      src="/images/boris-conversas.png"
+                      alt="Prévia de conversas em grupo mostrando desafios comuns no WhatsApp"
+                      className="h-auto w-full"
+                      loading="lazy"
+                    />
+                  </figure>
                 </div>
               </div>
 
-              <div className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
+              <div className="mx-auto mt-10 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
                 Essas são dores reais de líderes de comunidade que já usam o Bóris.
               </div>
             </div>
@@ -665,19 +854,21 @@ export function HomePage() {
               </div>
             </div>
 
-            <figure
-              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
-              style={{ aspectRatio: "4 / 3" }}
-            >
-              <img
-                src="/images/boris-organization.png"
-                alt="Ilustração do painel do Bóris mostrando sinais claros da comunidade"
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-background/10 to-transparent" />
-              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-muted/70 blur-3xl" />
+            <figure className="relative overflow-hidden rounded-3xl bg-transparent">
+              <div className="grid gap-4">
+                <img
+                  src="/images/admin1.png"
+                  alt="Captura de tela do painel do Bóris com métricas e sinais da comunidade"
+                  className="h-auto w-full object-contain"
+                  loading="lazy"
+                />
+                <img
+                  src="/images/admin2.png"
+                  alt="Captura de tela complementar do painel do Bóris com métricas e organização"
+                  className="h-auto w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
             </figure>
           </div>
         </section>
@@ -778,19 +969,13 @@ export function HomePage() {
               </p>
             </div>
 
-            <figure
-              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
-              style={{ aspectRatio: "4 / 3" }}
-            >
+            <figure className="relative overflow-hidden rounded-3xl bg-transparent" style={{ aspectRatio: "4 / 3" }}>
               <img
-                src="/images/boris-atarefado.jpg"
-                alt="Uma pessoa tranquila, confortável, usando o WhatsApp"
-                className="h-full w-full object-cover"
+                src="/images/boris-participa.png"
+                alt="Captura de tela do Bóris mostrando participação e interações no grupo"
+                className="h-full w-full object-contain"
                 loading="lazy"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
-              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
             </figure>
           </div>
         </section>
@@ -801,23 +986,23 @@ export function HomePage() {
               Simples. <span className="text-brand">Sem atrito.</span>
             </h2>
 
-            <div className="relative mt-10">
-              <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-px bg-brand/15 md:left-10 md:right-10 md:top-5 md:bottom-auto md:h-px md:w-auto" />
+            <div className="relative mt-12">
+              <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-[1.5px] rounded-full bg-border/80 md:left-10 md:right-10 md:top-5 md:bottom-auto md:h-[1.5px] md:w-auto" />
 
-              <ol className="grid gap-4 md:grid-cols-5 md:gap-5">
+              <ol className="grid gap-5 md:grid-cols-5 md:gap-6">
                 {howItWorksSteps.map((step, index) => (
                   <li key={step.title} className="relative flex gap-4 md:flex-col md:items-center md:gap-5">
-                    <div className="relative z-10 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand/20 bg-brand/10 text-sm font-semibold tracking-tight text-brand">
+                    <div className="relative z-10 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/80 bg-background/50 text-sm font-semibold tracking-tight text-muted-foreground ring-1 ring-border/40">
                       {index + 1}
                     </div>
 
-                    <div className="w-full rounded-2xl border border-border bg-card/60 px-5 py-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] md:text-center">
+                    <div className="w-full rounded-2xl border border-border bg-card/70 px-5 py-5 transition-colors hover:bg-card/80 md:text-center">
                       <div className="flex items-center gap-3 md:flex-col md:gap-3">
                         <span
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15"
+                          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand/10 text-brand ring-1 ring-brand/15"
                           aria-hidden
                         >
-                          <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{step.icon}</span>
+                          <span className="h-5 w-5 text-brand/80 [&>svg]:h-5 [&>svg]:w-5">{step.icon}</span>
                         </span>
                         <div className="text-sm font-semibold tracking-tight text-foreground">{step.title}</div>
                       </div>
@@ -837,7 +1022,13 @@ export function HomePage() {
 
             <div className="mt-10">
               <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
-                <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                <a
+                  href={buildWhatsappHref(
+                    "Oi! Quero falar sobre meu grupo no WhatsApp e entender se o Bóris é pra mim."
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Quero falar sobre meu grupo
                 </a>
               </Button>
@@ -846,54 +1037,73 @@ export function HomePage() {
         </section>
 
         <section className="border-t border-border py-14 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
             <div>
-              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
+                Sobre comunidade
+              </div>
+              <h2 className="mt-3 text-balance text-2xl font-semibold tracking-tight md:text-3xl">
                 Comunidade boa é viva, humana — e dá trabalho.
               </h2>
 
-              <div className="mt-5 max-w-xl space-y-6 text-sm leading-[1.75] text-muted-foreground">
+              <div className="mt-6 max-w-xl space-y-10 text-sm leading-[1.9] text-muted-foreground md:text-base">
                 <div>
-                  <p>Se você lidera um grupo no WhatsApp, já percebeu:</p>
-                  <ul className="mt-4 list-disc space-y-2 pl-5">
-                    <li>as conversas acontecem ali</li>
-                    <li>as conexões nascem ali</li>
-                    <li>as oportunidades surgem ali</li>
+                  <p>Se você cuida de um grupo no WhatsApp, você já viu como é:</p>
+                  <ul className="mt-5 space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-brand/70" aria-hidden />
+                      <span className="text-foreground/90">as conversas acontecem ali</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-brand/70" aria-hidden />
+                      <span className="text-foreground/90">as conexões nascem ali</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-brand/70" aria-hidden />
+                      <span className="text-foreground/90">as oportunidades surgem ali</span>
+                    </li>
                   </ul>
                 </div>
 
                 <div>
-                  <p>Mas sem clareza e dados, fica difícil:</p>
-                  <ul className="mt-4 list-disc space-y-2 pl-5">
-                    <li>mostrar valor</li>
-                    <li>tomar boas decisões</li>
-                    <li>reduzir churn</li>
-                    <li>cuidar bem das pessoas</li>
+                  <p>E, quando tudo fica espalhado no chat, sem clareza e dados, acaba ficando difícil:</p>
+                  <ul className="mt-5 space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-foreground/20" aria-hidden />
+                      <span className="text-foreground/90">mostrar valor</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-foreground/20" aria-hidden />
+                      <span className="text-foreground/90">tomar boas decisões</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-foreground/20" aria-hidden />
+                      <span className="text-foreground/90">reduzir churn</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 rounded-full bg-foreground/20" aria-hidden />
+                      <span className="text-foreground/90">cuidar bem das pessoas</span>
+                    </li>
                   </ul>
                 </div>
 
-                <div className="space-y-3">
-                  <p className="font-medium text-foreground">É aí que eu entro.</p>
-                  <p>
+                <div className="space-y-4">
+                  <p className="text-base font-medium leading-relaxed text-foreground">É aí que eu entro.</p>
+                  <p className="border-l-2 border-brand/25 pl-5 font-medium leading-[1.9] text-foreground/85">
                     Eu estou aqui para te dar visão, organização e tranquilidade — sem complicar nada.
                   </p>
+                  <p className="text-foreground/75">Para você respirar — e para o grupo continuar vivo.</p>
                 </div>
               </div>
             </div>
 
-            <figure
-              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
-              style={{ aspectRatio: "4 / 3" }}
-            >
+            <figure className="relative overflow-hidden rounded-3xl bg-transparent" style={{ aspectRatio: "4 / 3" }}>
               <img
-                src="/images/boris-atarefado.jpg"
+                src="/images/boris-comunidade.png"
                 alt="Gestor de comunidade com celular em um ambiente calmo, com conversas acontecendo ao fundo"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
                 loading="lazy"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
-              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
             </figure>
           </div>
         </section>
@@ -913,16 +1123,19 @@ export function HomePage() {
                   key={item.name}
                   className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-border bg-background/70">
-                      <span className="text-[11px] font-semibold tracking-[0.18em] text-foreground/80">
-                        {item.logo}
-                      </span>
+                  <div className="flex items-start gap-5">
+                    <div className="inline-flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background/70">
+                      <img
+                        src={item.logoSrc}
+                        alt={item.name}
+                        className="h-full w-full rounded-full object-contain p-3"
+                        loading="lazy"
+                      />
                     </div>
 
                     <div className="min-w-0">
-                      <div className="text-sm font-semibold tracking-tight text-foreground">{item.name}</div>
-                      <div className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.context}</div>
+                      <div className="text-base font-semibold tracking-tight text-foreground">{item.name}</div>
+                      <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.context}</div>
 
                       <div className="mt-5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
                         Como o Bóris ajuda
@@ -945,43 +1158,6 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="border-t border-border py-14 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
-              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
-                Você fala <span className="text-brand">direto comigo.</span>
-              </h2>
-              <p className="mt-4 max-w-xl text-sm leading-[1.75] text-muted-foreground">
-                Eu sou o criador do Bóris e acompanho pessoalmente os primeiros clientes. Quero entender seu contexto e ajudar a
-                transformar seu grupo numa comunidade de verdade.
-              </p>
-
-              <div className="mt-8">
-                <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
-                  <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
-                    Falar com o criador no WhatsApp
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-            <figure
-              className="relative overflow-hidden rounded-3xl border border-border bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
-              style={{ aspectRatio: "4 / 3" }}
-            >
-              <img
-                src="/images/boris-atarefado.jpg"
-                alt="Foto humana e acolhedora de alguém conversando com calma pelo WhatsApp"
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
-              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
-            </figure>
-          </div>
-        </section>
-
         <section id="cta" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-10 md:px-10">
             <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
@@ -994,18 +1170,31 @@ export function HomePage() {
                   E você ainda fala direto comigo para configurar o início. Se a sua realidade envolve muitos grupos, a gente
                   conversa e ajusta juntos.
                 </p>
+
+                <div className="mt-7 max-w-2xl">
+                  <div className="text-xs font-medium tracking-[0.14em] text-muted-foreground/80">Nada escondido:</div>
+                  <ul className="mt-3 list-disc space-y-1 pl-4 text-xs leading-relaxed text-muted-foreground/80 marker:text-foreground/25">
+                    <li>sem contrato</li>
+                    <li>sem taxa de setup</li>
+                    <li>você pode cancelar a qualquer momento</li>
+                    <li>suporte humano, direto com o criador do Bóris</li>
+                  </ul>
+                </div>
               </div>
 
               <div className="flex flex-col gap-5 md:items-end">
-                <div className="w-full rounded-2xl border border-border bg-background/60 p-6 text-left md:max-w-sm md:text-right">
-                  <div className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">R$ 247</div>
+                <div className="w-full rounded-2xl bg-background/60 p-6 text-left md:max-w-sm md:text-right">
+                  <div className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">R$ 247</div>
                   <div className="mt-1 text-sm text-muted-foreground">por mês, por grupo</div>
                 </div>
-                <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
-                  <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
-                    Ativar o Bóris no meu grupo
-                  </a>
+                <Button
+                  size="lg"
+                  className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90"
+                  onClick={() => setOnboardingOpen(true)}
+                >
+                  Ativar o Bóris no meu grupo
                 </Button>
+                <div className="text-xs text-muted-foreground md:text-right">Sem contrato. Cancelamento simples.</div>
               </div>
             </div>
 
@@ -1016,13 +1205,25 @@ export function HomePage() {
 
         <section className="border-t border-border py-16 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
+            <div className="mx-auto mb-8 w-full max-w-[260px] md:mb-10">
+              <img
+                src="/images/boris-cuida.png"
+                alt="Bóris cuidando da comunidade"
+                className="h-auto w-full object-contain"
+                loading="lazy"
+              />
+            </div>
             <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">
               O Bóris cuida da sua comunidade. <span className="block text-brand">Você cuida das pessoas.</span>
             </h2>
 
             <div className="mt-10">
               <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
-                <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
+                <a
+                  href={buildWhatsappHref("Oi! Quero ver como o Bóris pode ajudar minha comunidade.")}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Falar com o criador do Bóris
                 </a>
               </Button>

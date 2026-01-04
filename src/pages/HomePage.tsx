@@ -280,9 +280,9 @@ const borisHelpsCards = [
 ];
 
 const memberBenefits = [
-  "não precisam acompanhar tudo",
-  "entendem o que está acontecendo",
-  "se sentem bem-vindos desde o início",
+  "não precisa acompanhar tudo",
+  "entende o que está acontecendo",
+  "se sente bem-vinda desde o início",
 ];
 
 const howItWorksSteps = [
@@ -472,7 +472,7 @@ function HeroImage() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent" />
         <div className="pointer-events-none absolute -left-14 -top-14 h-52 w-52 rounded-full bg-brand/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-brand/10 blur-3xl" />
 
         <div className="absolute bottom-5 left-5 w-[70%] overflow-hidden rounded-2xl border border-border bg-background/80 shadow-[0_18px_48px_rgba(0,0,0,0.10)] backdrop-blur sm:w-[58%]">
           <img
@@ -506,7 +506,7 @@ export function HomePage() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button asChild size="sm" className="rounded-full">
+            <Button asChild size="sm" className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
               <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
                 Abrir no WhatsApp
               </a>
@@ -518,7 +518,7 @@ export function HomePage() {
       <main id="top" className="mx-auto w-full max-w-6xl px-6">
         <section className="relative flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
           <div className="pointer-events-none absolute -top-10 left-1/2 h-72 w-[min(980px,100%)] -translate-x-1/2 rounded-full bg-brand/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-16 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-16 left-10 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
 
           <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
             <div className="order-first lg:order-none">
@@ -539,7 +539,7 @@ export function HomePage() {
               </p>
 
               <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-4">
-                <Button asChild size="default" className="h-11 rounded-lg px-6">
+                <Button asChild size="default" className="h-11 rounded-lg bg-brand px-6 text-brand-foreground hover:bg-brand/90">
                   <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
                     Falar com o criador do Bóris
                   </a>
@@ -563,7 +563,7 @@ export function HomePage() {
 
             <div className="mt-10">
               <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/20 px-5 py-6 shadow-[0_14px_40px_rgba(0,0,0,0.05)] md:px-8 md:py-8">
-                <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+                <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
                 <div className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
 
                 <div className="mx-auto flex max-w-3xl flex-col gap-4">
@@ -591,7 +591,9 @@ export function HomePage() {
         <section id="como-funciona" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="mx-auto max-w-5xl">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">Como funciona</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">Organização sem tirar ninguém do lugar</h2>
+            <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">
+              Organização <span className="text-brand">sem tirar ninguém do lugar</span>
+            </h2>
             <p className="mt-3 max-w-3xl text-sm leading-[1.75] text-muted-foreground">
               O Bóris acompanha a conversa com calma e, nos momentos certos, transforma volume em clareza. Sem forçar formato,
               sem mudar o comportamento das pessoas — e sem tirar ninguém do WhatsApp.
@@ -601,11 +603,11 @@ export function HomePage() {
               {organizeCards.map((card) => (
                 <div
                   key={card.title}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5"
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card/60 p-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
                 >
                   <div className="flex items-start gap-3">
                     <span
-                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15"
                       aria-hidden
                     >
                       <span className="h-4 w-4 [&>svg]:h-4 [&>svg]:w-4">{card.icon}</span>
@@ -617,7 +619,7 @@ export function HomePage() {
                     </div>
                   </div>
                   <span
-                    className="pointer-events-none absolute -left-14 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl transition group-hover:bg-primary/15"
+                    className="pointer-events-none absolute -left-14 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-brand/10 blur-3xl transition group-hover:bg-brand/15"
                     aria-hidden
                   />
                 </div>
@@ -629,7 +631,9 @@ export function HomePage() {
         <section id="painel" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Métricas simples, sem cara de planilha</h2>
+              <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
+                Métricas simples, <span className="text-brand">sem cara de planilha</span>
+              </h2>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                 Sinais claros para entender participação, momentos fortes e valor gerado.
               </p>
@@ -642,7 +646,7 @@ export function HomePage() {
                   >
                     <div className="flex items-start gap-3">
                       <span
-                        className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                        className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15"
                         aria-hidden
                       >
                         <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{signal.icon}</span>
@@ -653,7 +657,7 @@ export function HomePage() {
                       </div>
                     </div>
                     <span
-                      className="pointer-events-none absolute -left-14 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl transition group-hover:bg-primary/15"
+                      className="pointer-events-none absolute -left-14 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-brand/10 blur-3xl transition group-hover:bg-brand/15"
                       aria-hidden
                     />
                   </div>
@@ -672,7 +676,7 @@ export function HomePage() {
                 loading="lazy"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-background/10 to-transparent" />
-              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
               <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-muted/70 blur-3xl" />
             </figure>
           </div>
@@ -680,7 +684,9 @@ export function HomePage() {
 
         <section id="como-ajuda" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Como o Bóris ajuda a sua comunidade</h2>
+            <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
+              Como o Bóris <span className="text-brand">ajuda</span> a sua comunidade
+            </h2>
 
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {borisHelpsCards.map((card) => (
@@ -690,7 +696,7 @@ export function HomePage() {
                 >
                   <div className="flex items-start gap-3">
                     <span
-                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15"
                       aria-hidden
                     >
                       <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{card.icon}</span>
@@ -703,7 +709,20 @@ export function HomePage() {
                       <ul className="mt-5 space-y-2 text-xs leading-relaxed text-muted-foreground">
                         {card.benefits.map((benefit) => (
                           <li key={benefit} className="flex items-start gap-2">
-                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-muted-foreground/60" aria-hidden />
+                            <span
+                              className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand ring-1 ring-brand/15"
+                              aria-hidden
+                            >
+                              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5">
+                                <path
+                                  d="M20 6 9 17l-5-5"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </span>
                             <span>{benefit}</span>
                           </li>
                         ))}
@@ -725,20 +744,38 @@ export function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
-                Para quem participa, tudo fica mais leve
+                Para quem participa, <span className="text-brand">tudo fica mais leve</span>
               </h2>
               <p className="mt-4 text-sm leading-[1.75] text-muted-foreground">Com o Bóris, os membros do grupo:</p>
 
-              <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
+              <ul className="mt-7 space-y-4 text-sm">
                 {memberBenefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/60" aria-hidden />
-                    <span>{benefit}</span>
+                  <li
+                    key={benefit}
+                    className="flex items-center gap-4 rounded-2xl border border-border bg-card/60 px-5 py-4 text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+                  >
+                    <span
+                      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand ring-1 ring-brand/15"
+                      aria-hidden
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+                        <path
+                          d="M20 6 9 17l-5-5"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-medium text-foreground/80">{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className="mt-8 text-sm font-medium text-foreground">Mais pertencimento. Menos cansaço.</p>
+              <p className="mt-9 text-sm font-semibold text-foreground">
+                Mais <span className="text-brand">pertencimento.</span> Menos cansaço.
+              </p>
             </div>
 
             <figure
@@ -753,29 +790,31 @@ export function HomePage() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
               <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
             </figure>
           </div>
         </section>
 
         <section id="passo-a-passo" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">Simples. Sem atrito.</h2>
+            <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
+              Simples. <span className="text-brand">Sem atrito.</span>
+            </h2>
 
             <div className="relative mt-10">
-              <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-px bg-border/70 md:left-10 md:right-10 md:top-5 md:bottom-auto md:h-px md:w-auto" />
+              <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-px bg-brand/15 md:left-10 md:right-10 md:top-5 md:bottom-auto md:h-px md:w-auto" />
 
               <ol className="grid gap-4 md:grid-cols-5 md:gap-5">
                 {howItWorksSteps.map((step, index) => (
                   <li key={step.title} className="relative flex gap-4 md:flex-col md:items-center md:gap-5">
-                    <div className="relative z-10 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold tracking-tight">
+                    <div className="relative z-10 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand/20 bg-brand/10 text-sm font-semibold tracking-tight text-brand">
                       {index + 1}
                     </div>
 
-                    <div className="w-full rounded-2xl border border-border bg-card/60 px-5 py-5 md:text-center">
+                    <div className="w-full rounded-2xl border border-border bg-card/60 px-5 py-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] md:text-center">
                       <div className="flex items-center gap-3 md:flex-col md:gap-3">
                         <span
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary/70 ring-1 ring-primary/15"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15"
                           aria-hidden
                         >
                           <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{step.icon}</span>
@@ -797,7 +836,7 @@ export function HomePage() {
             </h2>
 
             <div className="mt-10">
-              <Button asChild size="lg" className="h-12 rounded-full px-8">
+              <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
                 <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
                   Quero falar sobre meu grupo
                 </a>
@@ -854,7 +893,7 @@ export function HomePage() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
               <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
             </figure>
           </div>
         </section>
@@ -862,7 +901,7 @@ export function HomePage() {
         <section id="clientes" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
-              Eu já ajudo grandes comunidades no Brasil
+              Eu já ajudo <span className="text-brand">grandes comunidades</span> no Brasil
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-[1.75] text-muted-foreground">
               De startups a grandes redes, o Bóris organiza conversas e transforma comunidades em espaços mais saudáveis.
@@ -909,14 +948,16 @@ export function HomePage() {
         <section className="border-t border-border py-14 lg:py-20">
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
-              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">Você fala direto comigo.</h2>
+              <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
+                Você fala <span className="text-brand">direto comigo.</span>
+              </h2>
               <p className="mt-4 max-w-xl text-sm leading-[1.75] text-muted-foreground">
                 Eu sou o criador do Bóris e acompanho pessoalmente os primeiros clientes. Quero entender seu contexto e ajudar a
                 transformar seu grupo numa comunidade de verdade.
               </p>
 
               <div className="mt-8">
-                <Button asChild size="lg" className="h-12 rounded-full px-8">
+                <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
                   <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
                     Falar com o criador no WhatsApp
                   </a>
@@ -936,7 +977,7 @@ export function HomePage() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/10 to-transparent" />
               <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-brand/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-12 h-56 w-56 rounded-full bg-brand/10 blur-3xl" />
             </figure>
           </div>
         </section>
@@ -947,7 +988,7 @@ export function HomePage() {
               <div>
                 <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">Plano e preço</div>
                 <h2 className="mt-3 text-balance text-xl font-semibold tracking-tight md:text-2xl">
-                  Um único plano. Claro e transparente.
+                  Um único plano. <span className="text-brand">Claro e transparente.</span>
                 </h2>
                 <p className="mt-4 max-w-2xl text-sm leading-[1.75] text-muted-foreground">
                   E você ainda fala direto comigo para configurar o início. Se a sua realidade envolve muitos grupos, a gente
@@ -960,7 +1001,7 @@ export function HomePage() {
                   <div className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">R$ 247</div>
                   <div className="mt-1 text-sm text-muted-foreground">por mês, por grupo</div>
                 </div>
-                <Button asChild size="lg" className="h-12 rounded-full px-8">
+                <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
                   <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
                     Ativar o Bóris no meu grupo
                   </a>
@@ -969,18 +1010,18 @@ export function HomePage() {
             </div>
 
             <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
           </div>
         </section>
 
         <section className="border-t border-border py-16 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">
-              O Bóris cuida da sua comunidade. <span className="block">Você cuida das pessoas.</span>
+              O Bóris cuida da sua comunidade. <span className="block text-brand">Você cuida das pessoas.</span>
             </h2>
 
             <div className="mt-10">
-              <Button asChild size="lg" className="h-12 rounded-full px-8">
+              <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
                 <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
                   Falar com o criador do Bóris
                 </a>

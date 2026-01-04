@@ -10,21 +10,6 @@ const navItems = [
   { label: "Começar", href: "#cta" },
 ];
 
-const problemCards = [
-  {
-    title: "Conversas importantes se perdem",
-    description: "Placeholder: mensagens, decisões e links se misturam no fluxo e somem rápido.",
-  },
-  {
-    title: "Resumo vira trabalho manual",
-    description: "Placeholder: alguém precisa parar tudo para organizar e repassar os pontos.",
-  },
-  {
-    title: "Engajamento fica no escuro",
-    description: "Placeholder: difícil provar valor, entender participação e ajustar a comunidade.",
-  },
-];
-
 const organizeCards = [
   {
     title: "Organiza sem interromper",
@@ -152,27 +137,73 @@ export function HomePage() {
         </section>
 
         <section id="problemas" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
             <div>
-              <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Quando tudo acontece no WhatsApp</h2>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Placeholder: o fluxo é rápido, humano e útil — mas pode virar bagunça quando o grupo cresce.
-              </p>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
+                O Problema do Gestor de Comunidade
+              </div>
+              <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">
+                Ser gestor de comunidade dá trabalho. Muito trabalho.
+              </h2>
+
+              <div className="mt-5 max-w-xl">
+                <div className="space-y-3 rounded-2xl bg-muted/30 px-5 py-4 text-sm leading-relaxed text-muted-foreground ring-1 ring-border/25 md:px-6 md:py-5 md:text-base">
+                  <p>Conversas o dia inteiro.</p>
+                  <p>Mensagens acumulando.</p>
+                  <p>Gente esperando resposta.</p>
+                  <p>E a sensação constante de que algo importante pode ter passado despercebido.</p>
+                </div>
+
+                <div className="mt-7 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
+                  Na prática, você segura tudo isso ao mesmo tempo
+                </div>
+
+                <ul className="mt-4 grid gap-3 text-sm leading-relaxed">
+                  {[
+                    "acompanhar tudo o que acontece",
+                    "responder quando precisam de você",
+                    "organizar decisões e informações",
+                    "provar o valor da comunidade para parceiros e liderança",
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      className="group relative overflow-hidden rounded-2xl bg-background/70 px-4 py-4 text-foreground/90 ring-1 ring-border/25 transition hover:bg-background/85 hover:ring-border/40 hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span
+                          className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/15"
+                          aria-hidden
+                        >
+                          <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+                        </span>
+                        <span className="font-medium tracking-tight">{item}</span>
+                      </div>
+                      <span
+                        className="pointer-events-none absolute -left-10 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl transition group-hover:bg-primary/15"
+                        aria-hidden
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {problemCards.map((card) => (
-                <div key={card.title} className="rounded-2xl border border-border bg-card p-5">
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden />
-                    <div>
-                      <div className="text-sm font-semibold tracking-tight">{card.title}</div>
-                      <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.description}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <figure
+              className="relative overflow-hidden rounded-3xl bg-card/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+              style={{ aspectRatio: "4 / 3" }}
+            >
+              <img
+                src="/images/boris-problems.png"
+                alt="Gestor de comunidade acompanhando mensagens e decisões enquanto trabalha"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-background/10 to-transparent" />
+              <div className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-2xl" />
+              <div className="pointer-events-none absolute -bottom-14 -right-10 h-44 w-44 rounded-full bg-muted/70 blur-3xl" />
+              <div className="pointer-events-none absolute right-10 top-10 h-12 w-20 rounded-2xl bg-primary/10 blur-xl" />
+              <div className="pointer-events-none absolute right-24 top-24 h-10 w-16 rounded-2xl bg-muted/60 blur-xl" />
+            </figure>
           </div>
         </section>
 

@@ -72,104 +72,20 @@ function LogoMark({ className }: { className?: string }) {
   );
 }
 
-function MascotPanelMock() {
+function HeroImage() {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="flex items-center justify-between border-b border-border px-5 py-4">
-        <div className="flex items-center gap-3">
-          <div className="h-2 w-2 rounded-full bg-brand" aria-hidden />
-          <div>
-            <div className="text-sm font-medium leading-none tracking-tight">Resumo do grupo</div>
-            <div className="mt-1 text-xs text-muted-foreground">Placeholder: últimos 7 dias</div>
-          </div>
-        </div>
-        <div className="rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground">
-          Em andamento
-        </div>
+    <div className="w-full max-w-4xl">
+      <div
+        className="overflow-hidden rounded-3xl bg-background shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+        style={{ aspectRatio: "16 / 9" }}
+      >
+        <img
+          src="/images/hero-boris.png"
+          alt="Ilustração do Bóris organizando conversas no WhatsApp"
+          className="h-full w-full object-cover"
+          loading="eager"
+        />
       </div>
-
-      <div className="grid gap-4 p-5 md:grid-cols-[1fr_1.1fr]">
-        <div className="space-y-3">
-          <div className="text-xs font-medium text-muted-foreground">Conversas</div>
-          <div className="space-y-2">
-            {[
-              { title: "Decisão", subtitle: "Placeholder: consenso e próximos passos" },
-              { title: "Destaque", subtitle: "Placeholder: link importante compartilhado" },
-              { title: "Perguntas", subtitle: "Placeholder: pontos que ficaram abertos" },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="flex items-start gap-3 rounded-xl border border-border bg-background px-3 py-3"
-              >
-                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />
-                <div className="min-w-0">
-                  <div className="truncate text-sm font-medium">{item.title}</div>
-                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {item.subtitle}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <div className="text-xs font-medium text-muted-foreground">Engajamento</div>
-          <div className="rounded-xl border border-border bg-background p-4">
-            <div className="flex items-end justify-between">
-              <div>
-                <div className="text-xs text-muted-foreground">Placeholder</div>
-                <div className="mt-1 text-2xl font-semibold tracking-tight">—</div>
-              </div>
-              <div className="text-xs text-muted-foreground">semana</div>
-            </div>
-            <svg
-              className="mt-4 h-20 w-full"
-              viewBox="0 0 240 80"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden
-            >
-              <path
-                d="M8 60 C40 50, 60 28, 92 36 C122 44, 138 22, 168 26 C194 30, 206 42, 232 18"
-                className="stroke-primary"
-                strokeWidth="2.25"
-                strokeLinecap="round"
-              />
-              <path
-                d="M8 60 C40 50, 60 28, 92 36 C122 44, 138 22, 168 26 C194 30, 206 42, 232 18 L232 80 L8 80 Z"
-                className="fill-primary/10"
-              />
-            </svg>
-
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              {[
-                { label: "Mensagens", value: "—" },
-                { label: "Reações", value: "—" },
-                { label: "Novos", value: "—" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-lg border border-border bg-card px-3 py-2">
-                  <div className="text-[11px] text-muted-foreground">{item.label}</div>
-                  <div className="mt-1 text-sm font-medium">{item.value}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-border bg-background p-4">
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-medium tracking-tight">O que mudou</div>
-              <div className="text-xs text-muted-foreground">Placeholder</div>
-            </div>
-            <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Placeholder: dois ou três tópicos curtos aparecem aqui como resumo da semana.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-brand/10 blur-2xl" />
-      <div className="pointer-events-none absolute -bottom-12 -left-12 h-56 w-56 rounded-full bg-primary/10 blur-2xl" />
     </div>
   );
 }
@@ -202,41 +118,36 @@ export function HomePage() {
       </header>
 
       <main id="top" className="mx-auto w-full max-w-6xl px-6">
-        <section className="grid gap-10 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
-          <div className="flex flex-col justify-center">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden />
-              Placeholder: assistente para grupos de WhatsApp
-            </div>
+        <section className="flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
+          <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center text-center">
+            <HeroImage />
 
-            <h1 className="mt-5 text-3xl font-semibold tracking-tight md:text-5xl">
-              Um grupo junta pessoas.
+            <h1 className="mt-8 text-4xl font-medium leading-[1.1] tracking-tight md:text-6xl">
+              Um grupo de WhatsApp junta pessoas.
               <span className="block text-brand">O Bóris transforma isso em comunidade.</span>
             </h1>
 
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              Placeholder: o Bóris organiza conversas, resume pontos importantes e mostra sinais de engajamento — sem
-              tirar ninguém do WhatsApp.
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              Eu organizo as conversas, resumo o que importa, meço o engajamento e ajudo você a mostrar o valor real da sua
+              comunidade, sem tirar ninguém do WhatsApp.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button asChild size="lg" className="rounded-full">
+            <div className="mt-8 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-6">
+              <Button asChild size="default" className="h-11 rounded-lg px-6">
                 <a href={whatsappCtaHref} target="_blank" rel="noreferrer">
-                  Placeholder: falar com o Bóris
+                  Falar com o criador do Bóris
                 </a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full">
-                <a href="#como-funciona">Ver como funciona</a>
-              </Button>
+
+              <a
+                href="#como-funciona"
+                className="w-fit text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+              >
+                Entender melhor primeiro
+              </a>
             </div>
 
-            <div className="mt-6 text-xs text-muted-foreground">
-              Placeholder: leve, humano e claro. Sem promessas exageradas.
-            </div>
-          </div>
-
-          <div className="lg:pt-2">
-            <MascotPanelMock />
+            <div className="mt-3 text-xs text-muted-foreground">Atendimento direto pelo WhatsApp. Sem robô, sem fila.</div>
           </div>
         </section>
 

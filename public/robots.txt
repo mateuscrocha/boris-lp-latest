@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://euboris.com.br/sitemap.xml

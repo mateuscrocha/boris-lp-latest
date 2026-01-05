@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { Carousel } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
 const whatsappBaseHref = "https://wa.me/5561981569893";
@@ -12,7 +13,6 @@ function buildWhatsappHref(message: string) {
 }
 
 const navItems = [
-  { label: "Problemas", href: "#problemas" },
   { label: "Como funciona", href: "#como-funciona" },
   { label: "Painel", href: "#painel" },
   { label: "Manifesto Bóris", href: "/manifesto" },
@@ -165,32 +165,13 @@ const communitySignals = [
       </svg>
     ),
   },
-  {
-    title: "Resumo da semana",
-    description: "Um resumo curto com os principais pontos e próximos passos.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-        <path
-          d="M8 7h8M8 11h8M8 15h5"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <path
-          d="M7.5 3.8h9A2.7 2.7 0 0 1 19.2 6.5v11A2.7 2.7 0 0 1 16.5 20.2h-9A2.7 2.7 0 0 1 4.8 17.5v-11A2.7 2.7 0 0 1 7.5 3.8Z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-      </svg>
-    ),
-  },
 ];
 
 const borisHelpsCards = [
   {
     title: "Eu envio resumos do que importa",
     description:
-      "Todo dia, eu preparo um resumo com os principais temas do grupo. Assim, mesmo quem não acompanhou tudo continua por dentro — sem stress.",
+      "Todo dia, eu preparo um resumo com os principais temas do grupo. Assim, mesmo quem não acompanhou tudo continua por dentro — sem estresse.",
     benefits: ["menos ansiedade", "mais pertencimento"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -461,24 +442,77 @@ function HeroImage() {
           alt="Bóris em um ambiente calmo, com um painel leve de métricas ao lado"
           className="h-full w-full object-cover"
           loading="eager"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
     </div>
   );
 }
 
+const adminCarouselSlides = [
+  {
+    src: "/images/admin1.png",
+    alt: "Captura de tela do painel do Bóris com métricas e sinais da comunidade",
+  },
+  {
+    src: "/images/admin2.png",
+    alt: "Captura de tela complementar do painel do Bóris com métricas e organização",
+  },
+  {
+    src: "/images/admin3.png",
+    alt: "Captura de tela adicional do painel do Bóris",
+  },
+] as const;
+
 function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const titleId = useId();
+  const descriptionId = useId();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [showFallback, setShowFallback] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!open) return;
+
+    previouslyFocusedElementRef.current = document.activeElement as HTMLElement | null;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
+      if (event.key !== "Tab") return;
+
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => element.offsetParent !== null);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey) {
+        if (!active || active === first || !dialog.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+        return;
+      }
+
+      if (!active || active === last || !dialog.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -487,10 +521,15 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
       setShowFallback(true);
     }, 2500);
 
+    window.setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 0);
+
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
       window.clearTimeout(fallbackTimer);
+      previouslyFocusedElementRef.current?.focus?.();
     };
   }, [open, onClose]);
 
@@ -502,14 +541,23 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onMouseDown={onClose} />
       <div
+        ref={dialogRef}
         className="relative flex h-dvh w-dvw flex-col bg-background md:h-[90vh] md:w-[min(1100px,calc(100vw-3rem))] md:overflow-hidden md:rounded-2xl md:border md:border-border md:shadow-[0_20px_60px_rgba(0,0,0,0.10)]"
         onMouseDown={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Cadastro do Bóris"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
       >
+        <h2 id={titleId} className="sr-only">
+          Cadastro do Bóris
+        </h2>
+        <p id={descriptionId} className="sr-only">
+          Formulário de cadastro carregado dentro de uma janela. Pressione Esc para fechar.
+        </p>
         <div className="relative flex-1 overflow-hidden">
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-background/80 text-muted-foreground backdrop-blur hover:bg-accent/50 hover:text-foreground"
@@ -562,32 +610,72 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
 export function HomePage() {
   const [onboardingOpen, setOnboardingOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
+  const mobileNavCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavPreviouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!mobileNavOpen) return;
+
+    mobileNavPreviouslyFocusedRef.current = document.activeElement as HTMLElement | null;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMobileNavOpen(false);
+      if (event.key !== "Tab") return;
+
+      const dialog = mobileNavRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => element.offsetParent !== null);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey) {
+        if (!active || active === first || !dialog.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+        return;
+      }
+
+      if (!active || active === last || !dialog.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
 
+    window.setTimeout(() => {
+      mobileNavCloseButtonRef.current?.focus();
+    }, 0);
+
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
+      mobileNavPreviouslyFocusedRef.current?.focus?.();
     };
   }, [mobileNavOpen]);
 
   return (
-    <div className="min-h-dvh bg-background text-foreground">
+    <div id="top" className="min-h-dvh bg-background text-foreground">
       {onboardingOpen ? <OnboardingModal open onClose={() => setOnboardingOpen(false)} /> : null}
       {mobileNavOpen ? (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="absolute inset-0 bg-black/40" onMouseDown={() => setMobileNavOpen(false)} />
           <div
+            ref={mobileNavRef}
             className="absolute left-4 right-4 top-4 overflow-hidden rounded-2xl border border-border bg-background shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
             onMouseDown={(event) => event.stopPropagation()}
             role="dialog"
@@ -597,6 +685,7 @@ export function HomePage() {
             <div className="flex items-center justify-between border-b border-border/60 px-5 py-4">
               <div className="text-sm font-medium tracking-tight text-foreground">Menu</div>
               <button
+                ref={mobileNavCloseButtonRef}
                 type="button"
                 onClick={() => setMobileNavOpen(false)}
                 className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent/50 hover:text-foreground"
@@ -637,6 +726,12 @@ export function HomePage() {
       ) : null}
       <header className="border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-5">
+          <a
+            href="#conteudo"
+            className="sr-only focus:not-sr-only focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:text-foreground"
+          >
+            Pular para o conteúdo
+          </a>
           <a href="#top" className="shrink-0">
             <LogoMark />
           </a>
@@ -689,7 +784,7 @@ export function HomePage() {
         </div>
       </header>
 
-      <main id="top" className="mx-auto w-full max-w-6xl px-6">
+      <main id="conteudo" className="mx-auto w-full max-w-6xl px-6">
         <section className="relative flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
           <div className="pointer-events-none absolute -top-10 left-1/2 h-72 w-[min(980px,100%)] -translate-x-1/2 rounded-full bg-brand/10 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-16 left-10 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
@@ -709,7 +804,7 @@ export function HomePage() {
 
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
                 Eu organizo, resumo, meço engajamento e ajudo você a mostrar o valor real da sua comunidade — sem tirar ninguém
-                do WhatsApp.
+                do WhatsApp. Eu não substituo o gestor. Eu apoio.
               </p>
 
               <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-start sm:gap-4">
@@ -736,7 +831,7 @@ export function HomePage() {
         <section id="problemas" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
-              💬 Conversas em grupos de WhatsApp geralmente têm esses desafios…
+              Conversas em grupos de WhatsApp geralmente têm esses desafios…
             </h2>
 
             <div className="mt-12">
@@ -765,6 +860,7 @@ export function HomePage() {
                       alt="Prévia de conversas em grupo mostrando desafios comuns no WhatsApp"
                       className="h-auto w-full"
                       loading="lazy"
+                      decoding="async"
                     />
                   </figure>
                 </div>
@@ -803,7 +899,7 @@ export function HomePage() {
                     </span>
 
                     <div>
-                      <div className="text-sm font-semibold tracking-tight text-foreground">{card.title}</div>
+                      <h3 className="text-sm font-semibold tracking-tight text-foreground">{card.title}</h3>
                       <div className="mt-3 text-sm leading-[1.75] text-muted-foreground">{card.description}</div>
                     </div>
                   </div>
@@ -841,7 +937,7 @@ export function HomePage() {
                         <span className="h-4 w-4 text-foreground/80 [&>svg]:h-4 [&>svg]:w-4">{signal.icon}</span>
                       </span>
                       <div>
-                        <div className="text-sm font-semibold tracking-tight text-foreground">{signal.title}</div>
+                        <h3 className="text-sm font-semibold tracking-tight text-foreground">{signal.title}</h3>
                         <div className="mt-2 text-sm leading-[1.75] text-muted-foreground">{signal.description}</div>
                       </div>
                     </div>
@@ -855,20 +951,13 @@ export function HomePage() {
             </div>
 
             <figure className="relative overflow-hidden rounded-3xl bg-transparent">
-              <div className="grid gap-4">
-                <img
-                  src="/images/admin1.png"
-                  alt="Captura de tela do painel do Bóris com métricas e sinais da comunidade"
-                  className="h-auto w-full object-contain"
-                  loading="lazy"
-                />
-                <img
-                  src="/images/admin2.png"
-                  alt="Captura de tela complementar do painel do Bóris com métricas e organização"
-                  className="h-auto w-full object-contain"
-                  loading="lazy"
-                />
-              </div>
+              <Carousel
+                slides={[...adminCarouselSlides]}
+                title="Painel"
+                ariaLabel="Imagens do painel do Bóris"
+                loop
+                transitionDuration={500}
+              />
             </figure>
           </div>
         </section>
@@ -894,7 +983,7 @@ export function HomePage() {
                     </span>
 
                     <div className="min-w-0">
-                      <div className="text-sm font-semibold tracking-tight text-foreground">{card.title}</div>
+                      <h3 className="text-sm font-semibold tracking-tight text-foreground">{card.title}</h3>
                       <div className="mt-3 text-sm leading-[1.75] text-muted-foreground">{card.description}</div>
 
                       <ul className="mt-5 space-y-2 text-xs leading-relaxed text-muted-foreground">
@@ -975,6 +1064,7 @@ export function HomePage() {
                 alt="Captura de tela do Bóris mostrando participação e interações no grupo"
                 className="h-full w-full object-contain"
                 loading="lazy"
+                decoding="async"
               />
             </figure>
           </div>
@@ -1004,7 +1094,7 @@ export function HomePage() {
                         >
                           <span className="h-5 w-5 text-brand/80 [&>svg]:h-5 [&>svg]:w-5">{step.icon}</span>
                         </span>
-                        <div className="text-sm font-semibold tracking-tight text-foreground">{step.title}</div>
+                        <h3 className="text-sm font-semibold tracking-tight text-foreground">{step.title}</h3>
                       </div>
                     </div>
                   </li>
@@ -1019,6 +1109,10 @@ export function HomePage() {
             <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">
               O Bóris organiza, resume e mede o que acontece no seu grupo — sem tirar ninguém do WhatsApp.
             </h2>
+
+            <p className="mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+              Eu não substituo o gestor. Eu apoio.
+            </p>
 
             <div className="mt-10">
               <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
@@ -1103,6 +1197,7 @@ export function HomePage() {
                 alt="Gestor de comunidade com celular em um ambiente calmo, com conversas acontecendo ao fundo"
                 className="h-full w-full object-contain"
                 loading="lazy"
+                decoding="async"
               />
             </figure>
           </div>
@@ -1130,11 +1225,12 @@ export function HomePage() {
                         alt={item.name}
                         className="h-full w-full rounded-full object-contain p-3"
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
 
                     <div className="min-w-0">
-                      <div className="text-base font-semibold tracking-tight text-foreground">{item.name}</div>
+                      <h3 className="text-base font-semibold tracking-tight text-foreground">{item.name}</h3>
                       <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.context}</div>
 
                       <div className="mt-5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
@@ -1211,6 +1307,7 @@ export function HomePage() {
                 alt="Bóris cuidando da comunidade"
                 className="h-auto w-full object-contain"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">

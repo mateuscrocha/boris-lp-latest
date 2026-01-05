@@ -84,9 +84,15 @@ function LogoMark() {
 
 export function ManifestoPage() {
   return (
-    <div className="min-h-dvh bg-background text-foreground">
+    <div id="top" className="min-h-dvh bg-background text-foreground">
       <header className="bg-background/80 backdrop-blur">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-5">
+          <a
+            href="#conteudo"
+            className="sr-only focus:not-sr-only focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:text-foreground"
+          >
+            Pular para o conteúdo
+          </a>
           <a href="/" className="shrink-0">
             <LogoMark />
           </a>
@@ -99,7 +105,7 @@ export function ManifestoPage() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-2xl px-6 pb-20 pt-14 md:pb-28 md:pt-20">
+      <main id="conteudo" className="mx-auto w-full max-w-2xl px-6 pb-20 pt-14 md:pb-28 md:pt-20">
         <h1 className="text-3xl font-medium tracking-tight md:text-4xl">Manifesto Bóris</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
           Sobre comunidade, conexão e cuidado.

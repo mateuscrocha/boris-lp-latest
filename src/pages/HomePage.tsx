@@ -22,18 +22,18 @@ const navItems = [
 const realProblemsMessages = [
   {
     sender: "Admin do Grupo",
-    title: "Tudo vira bagunça",
-    body: "As mesmas perguntas aparecem sempre.\nVocê responde.\nE no dia seguinte… volta tudo de novo.",
+    title: "Tudo vira bagunça 🔄",
+    body: "As mesmas perguntas aparecem sempre. 🔁\nVocê responde.\nE no dia seguinte… volta tudo de novo.",
   },
   {
     sender: "Mentora do Grupo",
-    title: "Quem não acompanha some",
-    body: "Algumas pessoas se perdem no meio das mensagens.\nQuando você percebe… já saíram.",
+    title: "Quem não acompanha some 🧭",
+    body: "Algumas pessoas se perdem no meio das mensagens. 🧩\nQuando você percebe… já saíram.",
   },
   {
     sender: "Líder da Comunidade",
-    title: "Como eu provo que isso importa?",
-    body: "Você sabe que o grupo gera valor.\nMas sem dados… explicar isso fica difícil.",
+    title: "Como eu provo que isso importa? 📊",
+    body: "Você sabe que o grupo gera valor.\nMas sem dados… explicar isso fica difícil. 📈",
   },
 ];
 
@@ -438,7 +438,7 @@ function HeroImage() {
         style={{ aspectRatio: "4 / 3" }}
       >
         <img
-          src="/images/boris-hero.png"
+          src="/images/q1.png"
           alt="Bóris em um ambiente calmo, com um painel leve de métricas ao lado"
           className="h-full w-full object-cover"
           loading="eager"
@@ -452,16 +452,24 @@ function HeroImage() {
 
 const adminCarouselSlides = [
   {
-    src: "/images/admin1.png",
-    alt: "Captura de tela do painel do Bóris com métricas e sinais da comunidade",
+    src: "/images/h1.png",
+    alt: "Imagem do painel do Bóris (1)",
   },
   {
-    src: "/images/admin2.png",
-    alt: "Captura de tela complementar do painel do Bóris com métricas e organização",
+    src: "/images/h2.png",
+    alt: "Imagem do painel do Bóris (2)",
   },
   {
-    src: "/images/admin3.png",
-    alt: "Captura de tela adicional do painel do Bóris",
+    src: "/images/h3.png",
+    alt: "Imagem do painel do Bóris (3)",
+  },
+  {
+    src: "/images/h4.png",
+    alt: "Imagem do painel do Bóris (4)",
+  },
+  {
+    src: "/images/h5.png",
+    alt: "Imagem do painel do Bóris (5)",
   },
 ] as const;
 
@@ -668,6 +676,64 @@ export function HomePage() {
     };
   }, [mobileNavOpen]);
 
+  useEffect(() => {
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-ui-section][data-reveal='true']")
+    );
+
+    if (sections.length === 0) return;
+
+    const revealAll = () => {
+      for (const section of sections) {
+        section.dataset.revealed = "true";
+      }
+    };
+
+    if (reduceMotionQuery.matches) {
+      revealAll();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.revealed = "true";
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.12,
+      }
+    );
+
+    for (const section of sections) observer.observe(section);
+
+    const onReduceMotionChange = () => {
+      if (!reduceMotionQuery.matches) return;
+      observer.disconnect();
+      revealAll();
+    };
+
+    if (typeof reduceMotionQuery.addEventListener === "function") {
+      reduceMotionQuery.addEventListener("change", onReduceMotionChange);
+    } else {
+      reduceMotionQuery.addListener(onReduceMotionChange);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (typeof reduceMotionQuery.removeEventListener === "function") {
+        reduceMotionQuery.removeEventListener("change", onReduceMotionChange);
+      } else {
+        reduceMotionQuery.removeListener(onReduceMotionChange);
+      }
+    };
+  }, []);
+
   return (
     <div id="top" className="min-h-dvh bg-background text-foreground">
       {onboardingOpen ? <OnboardingModal open onClose={() => setOnboardingOpen(false)} /> : null}
@@ -785,7 +851,7 @@ export function HomePage() {
       </header>
 
       <main id="conteudo" className="mx-auto w-full max-w-6xl px-6">
-        <section className="relative flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
+        <section data-ui-section data-reveal="true" className="relative flex min-h-[70vh] items-center py-16 lg:min-h-[74vh] lg:py-24">
           <div className="pointer-events-none absolute -top-10 left-1/2 h-72 w-[min(980px,100%)] -translate-x-1/2 rounded-full bg-brand/10 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-16 left-10 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
 
@@ -828,7 +894,13 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="problemas" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="problemas"
+          data-ui-section
+          data-reveal="true"
+          data-tone="alt"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="mx-auto max-w-5xl">
             <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
               Conversas em grupos de WhatsApp geralmente têm esses desafios…
@@ -843,10 +915,12 @@ export function HomePage() {
                   <div className="flex flex-col gap-5 md:gap-6">
                     {realProblemsMessages.map((message) => (
                       <div key={message.title} className="flex">
-                        <div className="max-w-[92%] rounded-2xl border border-border bg-background/90 px-5 py-5 shadow-[0_10px_28px_rgba(0,0,0,0.06)] backdrop-blur md:max-w-[78%]">
-                          <div className="text-xs font-medium tracking-tight text-muted-foreground">{message.sender}</div>
-                          <div className="mt-1 text-sm font-semibold tracking-tight text-foreground">{message.title}</div>
-                          <div className="mt-2 text-sm leading-[1.75] text-muted-foreground whitespace-pre-line">
+                        <div className="max-w-[92%] rounded-[18px] bg-[#dcf8c6] px-4 py-3 text-[#111b21] shadow-[0_1px_1px_rgba(0,0,0,0.14),0_8px_18px_rgba(0,0,0,0.06)] ring-1 ring-black/5 md:max-w-[78%] md:px-5 md:py-4">
+                          <div className="text-[11px] font-medium tracking-tight text-[#54656f] md:text-xs">
+                            {message.sender}
+                          </div>
+                          <div className="mt-1 text-[13px] font-semibold tracking-tight md:text-sm">{message.title}</div>
+                          <div className="mt-2 text-[13px] leading-[1.55] text-[#111b21]/90 whitespace-pre-line md:text-sm md:leading-[1.65]">
                             {message.body}
                           </div>
                         </div>
@@ -856,7 +930,7 @@ export function HomePage() {
 
                   <figure className="relative overflow-hidden rounded-2xl bg-transparent">
                     <img
-                      src="/images/boris-conversas.png"
+                      src="/images/v1.png"
                       alt="Prévia de conversas em grupo mostrando desafios comuns no WhatsApp"
                       className="h-auto w-full"
                       loading="lazy"
@@ -873,7 +947,12 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="como-funciona" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="como-funciona"
+          data-ui-section
+          data-reveal="true"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="mx-auto max-w-5xl">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">Como funciona</div>
             <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">
@@ -913,7 +992,13 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="painel" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="painel"
+          data-ui-section
+          data-reveal="true"
+          data-tone="alt"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
@@ -962,7 +1047,12 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="como-ajuda" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="como-ajuda"
+          data-ui-section
+          data-reveal="true"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="mx-auto max-w-5xl">
             <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
               Como o Bóris <span className="text-brand">ajuda</span> a sua comunidade
@@ -1020,7 +1110,13 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="beneficios" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="beneficios"
+          data-ui-section
+          data-reveal="true"
+          data-tone="alt"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <h2 className="text-balance text-xl font-semibold tracking-tight md:text-2xl">
@@ -1060,7 +1156,7 @@ export function HomePage() {
 
             <figure className="relative overflow-hidden rounded-3xl bg-transparent" style={{ aspectRatio: "4 / 3" }}>
               <img
-                src="/images/boris-participa.png"
+                src="/images/h7.png"
                 alt="Captura de tela do Bóris mostrando participação e interações no grupo"
                 className="h-full w-full object-contain"
                 loading="lazy"
@@ -1070,7 +1166,12 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="passo-a-passo" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="passo-a-passo"
+          data-ui-section
+          data-reveal="true"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="mx-auto max-w-5xl">
             <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
               Simples. <span className="text-brand">Sem atrito.</span>
@@ -1086,7 +1187,10 @@ export function HomePage() {
                       {index + 1}
                     </div>
 
-                    <div className="w-full rounded-2xl border border-border bg-card/70 px-5 py-5 transition-colors hover:bg-card/80 md:text-center">
+                    <div
+                      data-borderless="true"
+                      className="w-full rounded-2xl border border-border bg-card/70 px-5 py-5 transition-colors hover:bg-card/80 md:text-center"
+                    >
                       <div className="flex items-center gap-3 md:flex-col md:gap-3">
                         <span
                           className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand/10 text-brand ring-1 ring-brand/15"
@@ -1104,7 +1208,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="border-t border-border py-16 lg:py-24">
+        <section data-ui-section data-reveal="true" data-tone="alt" className="border-t border-border/60 py-16 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-balance text-2xl font-medium leading-[1.25] tracking-tight md:text-4xl">
               O Bóris organiza, resume e mede o que acontece no seu grupo — sem tirar ninguém do WhatsApp.
@@ -1130,7 +1234,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="border-t border-border py-14 lg:py-20">
+        <section data-ui-section data-reveal="true" className="border-t border-border/60 py-14 lg:py-20">
           <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
             <div>
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
@@ -1193,7 +1297,7 @@ export function HomePage() {
 
             <figure className="relative overflow-hidden rounded-3xl bg-transparent" style={{ aspectRatio: "4 / 3" }}>
               <img
-                src="/images/boris-comunidade.png"
+                src="/images/h8.png"
                 alt="Gestor de comunidade com celular em um ambiente calmo, com conversas acontecendo ao fundo"
                 className="h-full w-full object-contain"
                 loading="lazy"
@@ -1203,7 +1307,13 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="clientes" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="clientes"
+          data-ui-section
+          data-reveal="true"
+          data-tone="alt"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="mx-auto max-w-5xl">
             <h2 className="text-balance text-center text-xl font-semibold tracking-tight md:text-2xl">
               Eu já ajudo <span className="text-brand">grandes comunidades</span> no Brasil
@@ -1254,7 +1364,12 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="cta" className="scroll-mt-24 border-t border-border py-14 lg:py-20">
+        <section
+          id="cta"
+          data-ui-section
+          data-reveal="true"
+          className="scroll-mt-24 border-t border-border/60 py-14 lg:py-20"
+        >
           <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-10 md:px-10">
             <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
               <div>
@@ -1299,13 +1414,18 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="border-t border-border py-16 lg:py-24">
+        <section
+          data-ui-section
+          data-reveal="true"
+          data-tone="alt"
+          className="overflow-x-hidden border-t border-border/60 py-16 lg:py-24"
+        >
           <div className="mx-auto max-w-4xl text-center">
-            <div className="mx-auto mb-8 w-full max-w-[260px] md:mb-10">
+            <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 md:mb-10">
               <img
-                src="/images/boris-cuida.png"
+                src="/images/h9.png"
                 alt="Bóris cuidando da comunidade"
-                className="h-auto w-full object-contain"
+                className="mx-auto h-auto w-full max-w-none object-contain"
                 loading="lazy"
                 decoding="async"
               />

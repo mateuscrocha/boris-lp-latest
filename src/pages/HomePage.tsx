@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { trackPlausibleEvent } from "@/lib/plausible";
-import { cn } from "@/lib/utils";
+import { cn, getAdminProductionUrl, joinUrl } from "@/lib/utils";
 
 const whatsappBaseHref = "https://wa.me/5561981569893";
-const onboardingHref = "https://central.euboris.com.br/onboarding";
+const onboardingHref = joinUrl(getAdminProductionUrl(), "onboarding");
 
 function buildWhatsappHref(message: string) {
   return `${whatsappBaseHref}?text=${encodeURIComponent(message)}`;
@@ -578,20 +578,39 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
             </svg>
           </button>
 
-            <iframe
-              title="Cadastro do Bóris"
-              src={onboardingHref}
-              className="h-full w-full"
-              onLoad={() => {
-                setIframeLoaded(true);
-                setShowFallback(false);
-                trackPlausibleEvent("Onboarding: iFrame carregou", { props: { destino: onboardingHref } });
-              }}
-              referrerPolicy="no-referrer"
-              allow="clipboard-read; clipboard-write"
-            />
+            {onboardingHref ? (
+              <iframe
+                title="Cadastro do Bóris"
+                src={onboardingHref}
+                className="h-full w-full"
+                onLoad={() => {
+                  setIframeLoaded(true);
+                  setShowFallback(false);
+                  trackPlausibleEvent("Onboarding: iFrame carregou", { props: { destino: onboardingHref } });
+                }}
+                referrerPolicy="no-referrer"
+                allow="clipboard-read; clipboard-write"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-background px-6 text-center">
+                <div>
+                  <div className="max-w-md text-sm leading-relaxed text-muted-foreground">
+                    O link do painel administrativo não está configurado.
+                  </div>
+                  <div className="mt-6">
+                    <Button
+                      variant="outline"
+                      className="h-11 rounded-full border-border/60 bg-transparent px-6 text-muted-foreground"
+                      onClick={onClose}
+                    >
+                      Fechar
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
 
-          {shouldShowFallback ? (
+          {shouldShowFallback && onboardingHref ? (
             <div className="absolute inset-0 flex items-center justify-center bg-background/70 px-6 text-center backdrop-blur-[2px]">
               <div>
                 <div className="max-w-md text-sm leading-relaxed text-muted-foreground">

@@ -6,6 +6,8 @@ import { HomePage } from "@/pages/HomePage";
 import { ManifestoPage } from "@/pages/ManifestoPage";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { RegisterPage } from "@/features/auth/pages/RegisterPage";
+import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 import { DashboardPage } from "@/features/example/pages/DashboardPage";
 
 export function AppRoutes() {
@@ -15,6 +17,8 @@ export function AppRoutes() {
       <Route path="/manifesto" element={<ManifestoPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route
         path="/app"
         element={

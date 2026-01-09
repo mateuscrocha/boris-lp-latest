@@ -2,6 +2,9 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+ARG ADMIN_PRODUCTION_URL
+ENV ADMIN_PRODUCTION_URL=$ADMIN_PRODUCTION_URL
+
 COPY package.json package-lock.json ./
 RUN npm ci
 

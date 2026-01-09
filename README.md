@@ -46,12 +46,22 @@ npm run lint
 
 Preencha no `.env`:
 
+- `ADMIN_PRODUCTION_URL`
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
 - `VITE_EVOLUTION_API_URL`
 - `VITE_EVOLUTION_API_KEY`
 - `VITE_EVOLUTION_INSTANCE_ID`
 - `VITE_EVOLUTION_WEBHOOK_SECRET`
+
+`ADMIN_PRODUCTION_URL` define a base URL do painel/admin em produção (usado para gerar links e embeds, como onboarding e links de auth).
+
+Você pode definir essa variável por ambiente usando os arquivos do Vite:
+
+- `.env` (local)
+- `.env.development` (dev)
+- `.env.staging` (staging, com `vite --mode staging`)
+- `.env.production` (produção)
 
 ## Supabase
 

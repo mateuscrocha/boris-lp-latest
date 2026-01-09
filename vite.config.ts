@@ -7,6 +7,7 @@ type ViteConfig = import("vite").UserConfig;
 
 export default defineConfig({
   plugins: [react()],
+  envPrefix: ["VITE_", "ADMIN_"],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

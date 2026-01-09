@@ -3,12 +3,15 @@ import type { PropsWithChildren } from "react";
 import type { AuthChangeEvent, Session, User } from "@supabase/supabase-js";
 
 import { supabase, supabaseConfigured } from "@/lib/supabaseClient";
+import { getAdminProductionUrl, joinUrl } from "@/lib/utils";
 
 type AuthContextValue = {
   user: User | null;
   loading: boolean;
   signIn: (params: { email: string; password: string }) => Promise<void>;
   signUp: (params: { email: string; password: string }) => Promise<void>;
+  requestPasswordReset: (params: { email: string }) => Promise<void>;
+  updatePassword: (params: { password: string }) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -62,7 +65,38 @@ export function AuthProvider({ children }: PropsWithChildren) {
         "Supabase não está configurado. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY no .env."
       );
     }
-    const { error } = await supabase.auth.signUp({ email, password });
+
+    const emailRedirectTo = joinUrl(getAdminProductionUrl(), "login");
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: emailRedirectTo ? { emailRedirectTo } : undefined,
+    });
+    if (error) throw error;
+  }, []);
+
+  const requestPasswordReset = useCallback(async ({ email }: { email: string }) => {
+    if (!supabaseConfigured || !supabase) {
+      throw new Error(
+        "Supabase não está configurado. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY no .env."
+      );
+    }
+
+    const redirectTo = joinUrl(getAdminProductionUrl(), "reset-password");
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, redirectTo ? { redirectTo } : undefined);
+    if (error) throw error;
+  }, []);
+
+  const updatePassword = useCallback(async ({ password }: { password: string }) => {
+    if (!supabaseConfigured || !supabase) {
+      throw new Error(
+        "Supabase não está configurado. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY no .env."
+      );
+    }
+
+    const { error } = await supabase.auth.updateUser({ password });
     if (error) throw error;
   }, []);
 
@@ -78,9 +112,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
       loading,
       signIn,
       signUp,
+      requestPasswordReset,
+      updatePassword,
       signOut,
     }),
-    [loading, session?.user, signIn, signOut, signUp]
+    [loading, session?.user, signIn, signOut, signUp, requestPasswordReset, updatePassword]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

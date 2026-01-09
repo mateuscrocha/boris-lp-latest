@@ -930,7 +930,7 @@ export function HomePage() {
 
                   <figure className="relative overflow-hidden rounded-2xl bg-transparent">
                     <img
-                      src="/images/v1.png"
+                      src="/images/v2.png"
                       alt="Prévia de conversas em grupo mostrando desafios comuns no WhatsApp"
                       className="h-auto w-full"
                       loading="lazy"
@@ -1418,14 +1418,14 @@ export function HomePage() {
           data-ui-section
           data-reveal="true"
           data-tone="alt"
-          className="overflow-x-hidden border-t border-border/60 py-16 lg:py-24"
+          className="border-t border-border/60 py-16 lg:py-24"
         >
           <div className="mx-auto max-w-4xl text-center">
-            <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 md:mb-10">
+            <div className="mx-auto mb-6 w-full max-w-[clamp(220px,52vw,520px)] md:mb-8">
               <img
                 src="/images/h9.png"
                 alt="Bóris cuidando da comunidade"
-                className="mx-auto h-auto w-full max-w-none object-contain"
+                className="mx-auto h-auto w-full object-contain max-h-[clamp(160px,26vh,320px)]"
                 loading="lazy"
                 decoding="async"
               />

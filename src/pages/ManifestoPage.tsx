@@ -130,6 +130,7 @@ export function ManifestoPage() {
           >
             <a
               href={buildWhatsappHref("Oi! Li o Manifesto Bóris e queria falar com o criador.")}
+              data-plausible-event="CTA: Falar com o criador (Manifesto)"
               target="_blank"
               rel="noreferrer"
             >

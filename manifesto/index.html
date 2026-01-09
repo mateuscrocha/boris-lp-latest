@@ -19,7 +19,9 @@
       property="og:description"
       content="Um texto sobre comunidade, conexão e cuidado — com calma, clareza e respeito pelo WhatsApp." 
     />
+    <meta property="og:site_name" content="Bóris" />
     <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:url" content="https://euboris.com.br/manifesto" />
     <meta property="og:image" content="https://euboris.com.br/images/boris-hero.png" />
     <meta property="og:image:alt" content="Bóris em um ambiente calmo, com foco em comunidade" />
@@ -31,6 +33,51 @@
       content="Um texto sobre comunidade, conexão e cuidado — com calma, clareza e respeito pelo WhatsApp." 
     />
     <meta name="twitter:image" content="https://euboris.com.br/images/boris-hero.png" />
+    <meta name="twitter:image:alt" content="Bóris em um ambiente calmo, com foco em comunidade" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://euboris.com.br/#organization",
+            "name": "Bóris",
+            "url": "https://euboris.com.br/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://euboris.com.br/images/logo.png"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://euboris.com.br/#website",
+            "url": "https://euboris.com.br/",
+            "name": "Bóris",
+            "publisher": { "@id": "https://euboris.com.br/#organization" }
+          },
+          {
+            "@type": "Article",
+            "@id": "https://euboris.com.br/manifesto#article",
+            "headline": "Manifesto Bóris — comunidade é sobre gente",
+            "description": "Um manifesto sobre comunidade, conexão e cuidado — e por que o Bóris existe para apoiar quem lidera grupos no WhatsApp.",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://euboris.com.br/manifesto"
+            },
+            "author": { "@id": "https://euboris.com.br/#organization" },
+            "publisher": { "@id": "https://euboris.com.br/#organization" },
+            "image": ["https://euboris.com.br/images/boris-hero.png"]
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      window.plausible = window.plausible || function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+    </script>
+    <script defer data-domain="euboris.com.br" src="https://boris-tools-plausible.valwa8.easypanel.host/js/script.js"></script>
   </head>
   <body>
     <div id="root"></div>

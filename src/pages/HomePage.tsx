@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
+import { trackPlausibleEvent } from "@/lib/plausible";
 import { cn } from "@/lib/utils";
 
 const whatsappBaseHref = "https://wa.me/5561981569893";
@@ -577,17 +578,18 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
             </svg>
           </button>
 
-          <iframe
-            title="Cadastro do Bóris"
-            src={onboardingHref}
-            className="h-full w-full"
-            onLoad={() => {
-              setIframeLoaded(true);
-              setShowFallback(false);
-            }}
-            referrerPolicy="no-referrer"
-            allow="clipboard-read; clipboard-write"
-          />
+            <iframe
+              title="Cadastro do Bóris"
+              src={onboardingHref}
+              className="h-full w-full"
+              onLoad={() => {
+                setIframeLoaded(true);
+                setShowFallback(false);
+                trackPlausibleEvent("Onboarding: iFrame carregou", { props: { destino: onboardingHref } });
+              }}
+              referrerPolicy="no-referrer"
+              allow="clipboard-read; clipboard-write"
+            />
 
           {shouldShowFallback ? (
             <div className="absolute inset-0 flex items-center justify-center bg-background/70 px-6 text-center backdrop-blur-[2px]">
@@ -601,7 +603,12 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
                     variant="outline"
                     className="h-11 rounded-full border-border/60 bg-transparent px-6 text-muted-foreground hover:bg-accent/40 hover:text-foreground"
                   >
-                    <a href={onboardingHref} target="_blank" rel="noreferrer">
+                    <a
+                      href={onboardingHref}
+                      data-plausible-event="Onboarding: Abrir em nova aba"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Abrir cadastro do Bóris em nova aba
                     </a>
                   </Button>
@@ -770,6 +777,7 @@ export function HomePage() {
                   <Link
                     key={item.href}
                     to={item.href}
+                    reloadDocument={item.href === "/manifesto"}
                     onClick={() => setMobileNavOpen(false)}
                     className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
@@ -808,6 +816,7 @@ export function HomePage() {
                 <Link
                   key={item.href}
                   to={item.href}
+                  reloadDocument={item.href === "/manifesto"}
                   className="rounded-md px-2 py-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   {item.label}
@@ -841,7 +850,7 @@ export function HomePage() {
               </svg>
             </Button>
             <Button asChild size="sm" className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
-              <a href="#cta">
+              <a href="#cta" data-plausible-event="CTA: Ativar (Header)">
                 <span className="hidden sm:inline">Colocar o Bóris no meu grupo</span>
                 <span className="sm:hidden">Ativar Bóris</span>
               </a>
@@ -877,6 +886,7 @@ export function HomePage() {
                 <Button asChild size="default" className="h-11 rounded-lg bg-brand px-6 text-brand-foreground hover:bg-brand/90">
                   <a
                     href={buildWhatsappHref("Oi! Vim pela landing do Bóris e quero falar com o criador.")}
+                    data-plausible-event="CTA: Falar com o criador (Hero)"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -885,7 +895,9 @@ export function HomePage() {
                 </Button>
 
                 <Button asChild size="default" variant="outline" className="h-11 rounded-lg px-6">
-                  <a href="#como-funciona">Quero entender melhor primeiro</a>
+                  <a href="#como-funciona" data-plausible-event="CTA: Entender melhor (Hero)">
+                    Quero entender melhor primeiro
+                  </a>
                 </Button>
               </div>
 
@@ -1062,7 +1074,7 @@ export function HomePage() {
               {borisHelpsCards.map((card) => (
                 <div
                   key={card.title}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] sm:p-6"
                 >
                   <div className="flex items-start gap-3">
                     <span
@@ -1073,12 +1085,16 @@ export function HomePage() {
                     </span>
 
                     <div className="min-w-0">
-                      <h3 className="text-sm font-semibold tracking-tight text-foreground">{card.title}</h3>
-                      <div className="mt-3 text-sm leading-[1.75] text-muted-foreground">{card.description}</div>
+                      <h3 className="text-sm font-semibold leading-snug tracking-tight text-foreground sm:leading-none">
+                        {card.title}
+                      </h3>
+                      <div className="mt-2 text-xs leading-snug text-muted-foreground line-clamp-3 sm:mt-3 sm:text-sm sm:leading-[1.75] sm:line-clamp-none">
+                        {card.description}
+                      </div>
 
-                      <ul className="mt-5 space-y-2 text-xs leading-relaxed text-muted-foreground">
-                        {card.benefits.map((benefit) => (
-                          <li key={benefit} className="flex items-start gap-2">
+                      <ul className="mt-4 space-y-2 text-xs leading-snug text-muted-foreground sm:mt-5 sm:leading-relaxed">
+                        {card.benefits.map((benefit, index) => (
+                          <li key={benefit} className={cn("flex items-start gap-2", index >= 2 ? "hidden sm:flex" : "")}>
                             <span
                               className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand ring-1 ring-brand/15"
                               aria-hidden
@@ -1224,6 +1240,7 @@ export function HomePage() {
                   href={buildWhatsappHref(
                     "Oi! Quero falar sobre meu grupo no WhatsApp e entender se o Bóris é pra mim."
                   )}
+                  data-plausible-event="CTA: Quero falar sobre meu grupo"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -1326,29 +1343,36 @@ export function HomePage() {
               {socialProofBlocks.map((item) => (
                 <div
                   key={item.name}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)]"
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:bg-card/80 hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] sm:p-6"
                 >
-                  <div className="flex items-start gap-5">
-                    <div className="inline-flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background/70">
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background/70 sm:h-20 sm:w-20">
                       <img
                         src={item.logoSrc}
                         alt={item.name}
-                        className="h-full w-full rounded-full object-contain p-3"
+                        className="h-full w-full rounded-full object-contain p-2 sm:p-3"
                         loading="lazy"
                         decoding="async"
                       />
                     </div>
 
                     <div className="min-w-0">
-                      <h3 className="text-base font-semibold tracking-tight text-foreground">{item.name}</h3>
-                      <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.context}</div>
-
-                      <div className="mt-5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
-                        Como o Bóris ajuda
+                      <h3 className="truncate text-sm font-semibold leading-snug tracking-tight text-foreground sm:text-base sm:leading-none">
+                        {item.name}
+                      </h3>
+                      <div className="mt-1 text-xs leading-snug text-muted-foreground line-clamp-2 sm:mt-2 sm:text-sm sm:leading-relaxed sm:line-clamp-none">
+                        {item.context}
                       </div>
-                      <div className="mt-2 text-sm leading-[1.75] text-muted-foreground">{item.helps}</div>
 
-                      <div className="mt-5 border-l border-border pl-4 text-sm leading-[1.75] text-foreground/80">
+                      <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/80 sm:mt-5 sm:text-xs">
+                        <span className="sm:hidden">Ajuda</span>
+                        <span className="hidden sm:inline">Como o Bóris ajuda</span>
+                      </div>
+                      <div className="mt-1 text-xs leading-snug text-muted-foreground line-clamp-2 sm:mt-2 sm:text-sm sm:leading-[1.75] sm:line-clamp-none">
+                        {item.helps}
+                      </div>
+
+                      <div className="mt-3 border-l border-border pl-4 text-xs leading-snug text-foreground/80 line-clamp-3 sm:mt-5 sm:text-sm sm:leading-[1.75] sm:line-clamp-none">
                         “{item.testimonial}”
                       </div>
                     </div>
@@ -1401,6 +1425,7 @@ export function HomePage() {
                 <Button
                   size="lg"
                   className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90"
+                  data-plausible-event="CTA: Ativar o Bóris"
                   onClick={() => setOnboardingOpen(true)}
                 >
                   Ativar o Bóris no meu grupo
@@ -1438,6 +1463,7 @@ export function HomePage() {
               <Button asChild size="lg" className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90">
                 <a
                   href={buildWhatsappHref("Oi! Quero ver como o Bóris pode ajudar minha comunidade.")}
+                  data-plausible-event="CTA: Falar com o criador (Footer)"
                   target="_blank"
                   rel="noreferrer"
                 >

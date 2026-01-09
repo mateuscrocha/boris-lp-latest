@@ -13,15 +13,19 @@
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#FF8A3D" />
 
+    <link rel="preload" as="image" href="/images/q1.png" fetchpriority="high" />
+
     <meta property="og:title" content="Bóris — organização para comunidades no WhatsApp" />
     <meta
       property="og:description"
       content="Clareza, organização e métricas humanas para quem lidera comunidades no WhatsApp."
     />
+    <meta property="og:site_name" content="Bóris" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:url" content="https://euboris.com.br/" />
-    <meta property="og:image" content="https://euboris.com.br/images/boris-hero.png" />
-    <meta property="og:image:alt" content="Bóris em um ambiente calmo, com foco em comunidade" />
+    <meta property="og:image" content="https://euboris.com.br/images/q1.png" />
+    <meta property="og:image:alt" content="Bóris em um ambiente calmo, com um painel leve de métricas ao lado" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Bóris — organização para comunidades no WhatsApp" />
@@ -29,7 +33,48 @@
       name="twitter:description"
       content="Clareza, organização e métricas humanas para quem lidera comunidades no WhatsApp."
     />
-    <meta name="twitter:image" content="https://euboris.com.br/images/boris-hero.png" />
+    <meta name="twitter:image" content="https://euboris.com.br/images/q1.png" />
+    <meta name="twitter:image:alt" content="Bóris em um ambiente calmo, com um painel leve de métricas ao lado" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://euboris.com.br/#organization",
+            "name": "Bóris",
+            "url": "https://euboris.com.br/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://euboris.com.br/images/logo.png"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://euboris.com.br/#website",
+            "url": "https://euboris.com.br/",
+            "name": "Bóris",
+            "publisher": { "@id": "https://euboris.com.br/#organization" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://euboris.com.br/#webpage",
+            "url": "https://euboris.com.br/",
+            "name": "Bóris — organização e inteligência para comunidades no WhatsApp",
+            "description": "O Bóris organiza conversas, cria resumos, mostra engajamento e ajuda você a revelar o valor real da sua comunidade no WhatsApp — sem tirar ninguém de lá. Simples, humano e transparente.",
+            "isPartOf": { "@id": "https://euboris.com.br/#website" },
+            "about": { "@id": "https://euboris.com.br/#organization" }
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      window.plausible = window.plausible || function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+    </script>
+    <script defer data-domain="euboris.com.br" src="https://boris-tools-plausible.valwa8.easypanel.host/js/script.js"></script>
   </head>
   <body>
     <div id="root"></div>

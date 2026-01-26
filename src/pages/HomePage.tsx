@@ -1,13 +1,11 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
-import { trackPlausibleEvent } from "@/lib/plausible";
-import { cn, getAdminProductionUrl, joinUrl } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 const whatsappBaseHref = "https://wa.me/5561981569893";
-const onboardingHref = joinUrl(getAdminProductionUrl(), "onboarding");
 
 function buildWhatsappHref(message: string) {
   return `${whatsappBaseHref}?text=${encodeURIComponent(message)}`;
@@ -474,175 +472,7 @@ const adminCarouselSlides = [
   },
 ] as const;
 
-function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const titleId = useId();
-  const descriptionId = useId();
-  const [iframeLoaded, setIframeLoaded] = useState(false);
-  const [showFallback, setShowFallback] = useState(false);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!open) return;
-
-    previouslyFocusedElementRef.current = document.activeElement as HTMLElement | null;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-      if (event.key !== "Tab") return;
-
-      const dialog = dialogRef.current;
-      if (!dialog) return;
-
-      const focusable = Array.from(
-        dialog.querySelectorAll<HTMLElement>(
-          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((element) => element.offsetParent !== null);
-
-      if (focusable.length === 0) return;
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-
-      if (event.shiftKey) {
-        if (!active || active === first || !dialog.contains(active)) {
-          event.preventDefault();
-          last.focus();
-        }
-        return;
-      }
-
-      if (!active || active === last || !dialog.contains(active)) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-
-    const fallbackTimer = window.setTimeout(() => {
-      setShowFallback(true);
-    }, 2500);
-
-    window.setTimeout(() => {
-      closeButtonRef.current?.focus();
-    }, 0);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-      window.clearTimeout(fallbackTimer);
-      previouslyFocusedElementRef.current?.focus?.();
-    };
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  const shouldShowFallback = showFallback && !iframeLoaded;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/40" onMouseDown={onClose} />
-      <div
-        ref={dialogRef}
-        className="relative flex h-dvh w-dvw flex-col bg-background md:h-[90vh] md:w-[min(1100px,calc(100vw-3rem))] md:overflow-hidden md:rounded-2xl md:border md:border-border md:shadow-[0_20px_60px_rgba(0,0,0,0.10)]"
-        onMouseDown={(event) => event.stopPropagation()}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={descriptionId}
-      >
-        <h2 id={titleId} className="sr-only">
-          Cadastro do Bóris
-        </h2>
-        <p id={descriptionId} className="sr-only">
-          Formulário de cadastro carregado dentro de uma janela. Pressione Esc para fechar.
-        </p>
-        <div className="relative flex-1 overflow-hidden">
-          <button
-            ref={closeButtonRef}
-            type="button"
-            onClick={onClose}
-            className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-background/80 text-muted-foreground backdrop-blur hover:bg-accent/50 hover:text-foreground"
-            aria-label="Fechar"
-          >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden className="h-5 w-5">
-              <path d="M6 6l12 12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-              <path d="M18 6 6 18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-            </svg>
-          </button>
-
-            {onboardingHref ? (
-              <iframe
-                title="Cadastro do Bóris"
-                src={onboardingHref}
-                className="h-full w-full"
-                onLoad={() => {
-                  setIframeLoaded(true);
-                  setShowFallback(false);
-                  trackPlausibleEvent("Onboarding: iFrame carregou", { props: { destino: onboardingHref } });
-                }}
-                referrerPolicy="no-referrer"
-                allow="clipboard-read; clipboard-write"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-background px-6 text-center">
-                <div>
-                  <div className="max-w-md text-sm leading-relaxed text-muted-foreground">
-                    O link do painel administrativo não está configurado.
-                  </div>
-                  <div className="mt-6">
-                    <Button
-                      variant="outline"
-                      className="h-11 rounded-full border-border/60 bg-transparent px-6 text-muted-foreground"
-                      onClick={onClose}
-                    >
-                      Fechar
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          {shouldShowFallback && onboardingHref ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-background/70 px-6 text-center backdrop-blur-[2px]">
-              <div>
-                <div className="max-w-md text-sm leading-relaxed text-muted-foreground">
-                  Não foi possível carregar o cadastro aqui dentro.
-                </div>
-                <div className="mt-6">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="h-11 rounded-full border-border/60 bg-transparent px-6 text-muted-foreground hover:bg-accent/40 hover:text-foreground"
-                  >
-                    <a
-                      href={onboardingHref}
-                      data-plausible-event="Onboarding: Abrir em nova aba"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Abrir cadastro do Bóris em nova aba
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function HomePage() {
-  const [onboardingOpen, setOnboardingOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const mobileNavCloseButtonRef = useRef<HTMLButtonElement>(null);
@@ -762,7 +592,6 @@ export function HomePage() {
 
   return (
     <div id="top" className="min-h-dvh bg-background text-foreground">
-      {onboardingOpen ? <OnboardingModal open onClose={() => setOnboardingOpen(false)} /> : null}
       {mobileNavOpen ? (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="absolute inset-0 bg-black/40" onMouseDown={() => setMobileNavOpen(false)} />
@@ -1442,12 +1271,18 @@ export function HomePage() {
                   <div className="mt-1 text-sm text-muted-foreground">por mês, por grupo</div>
                 </div>
                 <Button
+                  asChild
                   size="lg"
                   className="h-12 rounded-full bg-brand px-8 text-brand-foreground hover:bg-brand/90"
-                  data-plausible-event="CTA: Ativar o Bóris"
-                  onClick={() => setOnboardingOpen(true)}
                 >
-                  Ativar o Bóris no meu grupo
+                  <a
+                    href={buildWhatsappHref("Oi! Quero ativar o Bóris no meu grupo. Pode me ajudar?")}
+                    data-plausible-event="CTA: Ativar o Bóris"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Ativar o Bóris no meu grupo
+                  </a>
                 </Button>
                 <div className="text-xs text-muted-foreground md:text-right">Sem contrato. Cancelamento simples.</div>
               </div>
